@@ -31,4 +31,10 @@ public class CharArrayFileReaderTest {
 	public void throwsExceptionWhenPathDoesNotMatchAnExistingFile() {
 		assertThrows(RuntimeException.class, () -> CharArrayFileReader.parseFile("resources/maps/unexisting-file.txt"));
 	}
+	
+	@Test
+	public void testIfInstanceOf() {
+		CharArrayFileReader cafr=new CharArrayFileReader();
+		assertTrue(cafr instanceof CharArrayFileReader);
+	}
 }

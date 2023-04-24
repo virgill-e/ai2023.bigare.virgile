@@ -1,5 +1,6 @@
 package treasurequest.supervisors;
 
+import treasurequest.domains.TreasureQuestGameFactory;
 import treasurequest.supervisors.views.GameOverView;
 
 /**
@@ -8,6 +9,11 @@ import treasurequest.supervisors.views.GameOverView;
  * */
 public class GameOverSupervisor {
 	private GameOverView view;
+	private TreasureQuestGameFactory factory;
+	
+	public GameOverSupervisor(TreasureQuestGameFactory factory) {
+		this.factory=factory;
+	}
 
 	/**
 	 * 

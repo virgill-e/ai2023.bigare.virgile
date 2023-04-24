@@ -1,6 +1,13 @@
 package treasurequest.supervisors;
 
+import java.util.Arrays;
+
+import treasurequest.domains.CaseMap;
+import treasurequest.domains.Coordinate;
+import treasurequest.domains.TreasureQuestGame;
+import treasurequest.domains.TreasureQuestGameFactory;
 import treasurequest.supervisors.views.PlayGameView;
+import treasurequest.supervisors.views.TileType;
 import treasurequest.supervisors.views.ViewNames;
 
 /**
@@ -8,8 +15,16 @@ import treasurequest.supervisors.views.ViewNames;
  * */
 public class PlayGameSupervisor {
 
+	private static final String SAMPLE="resources/maps/map-sample.txt";
+
 	private PlayGameView view;
-	
+	private TreasureQuestGameFactory factory;
+	private TreasureQuestGame game;
+
+	public PlayGameSupervisor(TreasureQuestGameFactory factory) {
+		this.factory=factory;
+	}
+
 	/**
 	 * Définit la vue de ce superviseur à {@code view}.
 	 * */
@@ -17,10 +32,9 @@ public class PlayGameSupervisor {
 		if(view == null) {
 			return;
 		}
-		
+
 		this.view = view;
 	}
-
 	/**
 	 * Méthode appelée juste avant que la vue de ce superviseur soit affichée à l'écran.
 	 * 
@@ -30,6 +44,17 @@ public class PlayGameSupervisor {
 	public void onEnter(String fromView) {
 		if (ViewNames.MAIN_MENU.equals(fromView)) {
 			// TODO : faire le rendu initial de l'écran de jeu
+			factory.createGame();
+			game=factory.getGame();
+			drawMap();
+		}
+	}
+	
+	private void drawMap() {
+		//boucler sur la map pour voir 
+		CaseMap caseMap=game.getMap();
+		for(Coordinate c:caseMap) {
+			view.setTileAt(caseMap.getCaseWithCoord(c).getType(), c.getCoordinateX(), c.getCoordinateY());
 		}
 	}
 

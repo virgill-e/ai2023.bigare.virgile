@@ -9,6 +9,7 @@ import treasurequest.supervisors.views.TileType;
  */
 public class Case {
 	private final CaseType type;
+	private int treasure=0;
 
 	/**
 	 * Constructeur de Case en fonction du char fournit en paramètre
@@ -26,7 +27,29 @@ public class Case {
 		return this.type.getType();
 	}
 	
-	public int getCout() {
-		return this.type.getCout();
+	/**
+	 * renvoie le prix pour creuser sur la case
+	 * @return
+	 */
+	public int getCost() {
+		return this.type.getCost();
+	}
+	
+	/**
+	 * set la valeur du trésor sur la case
+	 * un treesor a une valeur allant de 10 a 20 piece
+	 * @param value
+	 */
+	public void setTreasure(int value) {
+		Math.max(10, Math.min(value, 20));
+	}
+	
+	/**
+	 * check si la case contient un tresor
+	 * Une case contient un tresor si son treasure>0
+	 * @return
+	 */
+	public boolean hasTreasure() {
+		return (this.treasure>0)?true:false;
 	}
 }

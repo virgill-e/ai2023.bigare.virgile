@@ -29,6 +29,12 @@ public class CaseMap implements Iterable<Coordinate>{
 		if(coord==null) return null;
 		return this.cases.get(coord);
 	}
+	
+	public int setAllChest() {
+		//TODO: erreur fair express(remettre méthode en void)
+		//ajouter les case creusable dans une liste
+		//la shuffle puis ajouter au x premier un coffre
+	}
 
 	@Override
 	public Iterator<Coordinate> iterator() {

@@ -47,8 +47,10 @@ public class PlayGameSupervisor {
 			factory.createGame();
 			game=factory.getGame();
 			drawMap();
+			
 		}
 	}
+	
 	
 	private void drawMap() {
 		//boucler sur la map pour voir 

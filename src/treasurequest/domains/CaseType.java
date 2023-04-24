@@ -13,7 +13,7 @@ public class CaseType {
 		return this.type;
 	}
 	
-	public int getCout() {
+	public int getCost() {
 		//TODO: cout en fonction du type
 		return -1;
 	}

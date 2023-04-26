@@ -1,13 +1,11 @@
 package treasurequest.supervisors;
 
-import java.util.Arrays;
 
 import treasurequest.domains.CaseMap;
 import treasurequest.domains.Coordinate;
 import treasurequest.domains.TreasureQuestGame;
 import treasurequest.domains.TreasureQuestGameFactory;
 import treasurequest.supervisors.views.PlayGameView;
-import treasurequest.supervisors.views.TileType;
 import treasurequest.supervisors.views.ViewNames;
 
 /**
@@ -15,10 +13,13 @@ import treasurequest.supervisors.views.ViewNames;
  * */
 public class PlayGameSupervisor {
 
-	private static final String SAMPLE="resources/maps/map-sample.txt";
-
+	private static final String BOURSE_PL = "Bourse : %d P";
+	private static final String NB_TREASURE="Tresor restant: %d";
+	private static final String ACTIVE_COST="Cout de la case active: %d";
+	private static final String ACTIVE_TYPE="Type case active: %s";
+	
 	private PlayGameView view;
-	private TreasureQuestGameFactory factory;
+	private final TreasureQuestGameFactory factory;
 	private TreasureQuestGame game;
 
 	public PlayGameSupervisor(TreasureQuestGameFactory factory) {
@@ -43,12 +44,19 @@ public class PlayGameSupervisor {
 	 * */
 	public void onEnter(String fromView) {
 		if (ViewNames.MAIN_MENU.equals(fromView)) {
-			// TODO : faire le rendu initial de l'écran de jeu
 			factory.createGame();
 			game=factory.getGame();
 			drawMap();
-			
+			view.setActiveCase(game.getActiveRow(), game.getActiveCol());
+			panelDisplay();
 		}
+	}
+	
+	private void panelDisplay() {
+		view.setPlayerCoins(String.format(BOURSE_PL, game.getPlayerCoins()));
+		view.setTreasuresCount(String.format(NB_TREASURE,game.getNbTreasur()));
+		view.setActiveCaseCost(String.format(ACTIVE_COST,game.getActiveCaseCost()));
+		view.setActiveCaseType(String.format(ACTIVE_TYPE,game.getActiveCaseType()));
 	}
 	
 	

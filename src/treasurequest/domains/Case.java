@@ -10,6 +10,7 @@ import treasurequest.supervisors.views.TileType;
 public class Case {
 	private final CaseType type;
 	private int treasure=0;
+	private boolean dug=false;
 
 	/**
 	 * Constructeur de Case en fonction du char fournit en paramètre
@@ -52,4 +53,13 @@ public class Case {
 	public boolean hasTreasure() {
 		return (this.treasure>0)?true:false;
 	}
+	
+	public boolean isDug() {
+		return this.dug;
+	}
+	
+	public void setDug() {
+		this.dug=true;
+	}
+
 }

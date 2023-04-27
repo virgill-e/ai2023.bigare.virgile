@@ -47,7 +47,7 @@ public class PlayGameSupervisor {
 			factory.createGame();
 			game=factory.getGame();
 			drawMap();
-			view.setActiveCase(game.getActiveRow(), game.getActiveCol());
+			view.setActiveCase(game.getActiveCol(), game.getActiveRow());
 			panelDisplay();
 		}
 	}
@@ -64,7 +64,7 @@ public class PlayGameSupervisor {
 		//boucler sur la map pour voir 
 		CaseMap caseMap=game.getMap();
 		for(Coordinate c:caseMap) {
-			view.setTileAt(caseMap.getCaseWithCoord(c).getType(), c.getCoordinateX(), c.getCoordinateY());
+			view.setTileAt(caseMap.getCaseWithCoord(c).getType(), c.getCoordinateY(), c.getCoordinateX());
 		}
 	}
 

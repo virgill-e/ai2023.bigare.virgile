@@ -11,7 +11,11 @@ import treasurequest.supervisors.views.TileType;
 public class TreasureQuestGame {
 	private final CaseMap caseMap;
 	private final Player player;
-	private Coordinate activeCoordinate;
+	private final Coordinate activeCoordinate;
+	
+	/*
+	 * CONSTRUCTORS
+	 */
 	
 	/**
 	 * Constructeur d'une parte de Treasure Quest prenant en parametre
@@ -24,6 +28,10 @@ public class TreasureQuestGame {
 		this.activeCoordinate=caseMap.getCenter();
 	}
 	
+	/*
+	 * PUBLIC METHODS
+	 */
+	
 	/**
 	 * renvoie la CaseMap de la partie en cours
 	 * @return
@@ -32,32 +40,63 @@ public class TreasureQuestGame {
 		return this.caseMap;
 	}
 	
+	/**
+	 * renvoie la ligne correspondante a la case active
+	 * @return
+	 */
 	public int getActiveRow() {
-		return this.caseMap.getCenter().getCoordinateX();
+		return this.activeCoordinate.getCoordinateX();
 	}
 	
+	/**
+	 * renvoie la colonne correspondante a la case active
+	 * @return
+	 */
 	public int getActiveCol() {
-		return this.caseMap.getCenter().getCoordinateY();
+		return this.activeCoordinate.getCoordinateY();
 	}
 	
+	/**
+	 * renvoie le nombre de piece que possède le joueur
+	 * @return
+	 */
 	public int getPlayerCoins() {
 		return this.player.getCoins();
 	}
 	
+	/**
+	 * renvoie le nombre de trésor restant dans la map
+	 * @return
+	 */
 	public int getNbTreasur() {
 		return this.caseMap.getNbTreasure();
 	}
 	
+	/**
+	 * renvoie le type de la case active
+	 * @return
+	 */
 	public TileType getActiveCaseType() {
 		return caseMap.getCaseWithCoord(activeCoordinate).getType();
 	}
 	
+	/**
+	 * renvoie le coût pour creuser sur la case active
+	 * @return
+	 */
 	public int getActiveCaseCost() {
 		Case casee=caseMap.getCaseWithCoord(activeCoordinate);
 		return casee.getCost();
 	}
 	
+	/**
+	 * mets a jour la case active
+	 */
 	public void updateActiveCase() {
-		//TODO
+		//TODO: later
 	}
+	
+	/*
+	 * PRIVATE METHODS
+	 */
 }

@@ -14,7 +14,7 @@ import treasurequest.swing.*;
  *
  */
 public class Program {
-	private static final String SAMPLE="resources/maps/map-sample.txt";
+	private static final String SAMPLE="resources/maps/map-sample-2.txt";
 
 	/**
 	 * Point d'entrée de l'application.

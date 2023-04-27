@@ -37,7 +37,7 @@ public class TreasureQuestGameFactory {
 	 */
 	public TreasureQuestGame getGame() {
 		if(this.game==null) {
-	        throw new IllegalStateException("La méthode ne peut pas être appelée maintenant");
+	        createGame();
 		}
 		return this.game;
 	}

@@ -92,9 +92,9 @@ public class TreasureQuestGame {
 	/**
 	 * mets a jour la case active
 	 */
-	public void updateActiveCase() {
-		//TODO: later
-	}
+//	public void updateActiveCase() {
+//		//TODO: later
+//	}
 	
 	/*
 	 * PRIVATE METHODS

@@ -3,7 +3,7 @@ package treasurequest.domains;
 
 
 /**
- * Classe qui représente une case par son type
+ * Class qui représente une case par son type
  * 
  * @author virgi
  *
@@ -76,6 +76,14 @@ public class Case {
 
 	public boolean isDug() {
 		return this.dug;
+	}
+	
+	/**
+	 * retourne un boolean si la case peut etre creuse ou non
+	 * @return
+	 */
+	public boolean canBeDug() {
+		return this.type.canBeDug();
 	}
 
 	/**

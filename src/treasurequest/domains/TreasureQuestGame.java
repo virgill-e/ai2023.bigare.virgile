@@ -3,7 +3,7 @@ package treasurequest.domains;
 import treasurequest.io.CharArrayFileReader;
 
 /**
- * classe d'une partie de Treasure Quest
+ * class d'une partie de Treasure Quest
  * 
  * @author virgi
  *
@@ -18,7 +18,7 @@ public class TreasureQuestGame {
 	 */
 
 	/**
-	 * Constructeur d'une parte de Treasure Quest prenant en parametre le path vers
+	 * Constructeur d'une partie de Treasure Quest prenant en parametre le path vers
 	 * le sample de la map
 	 * 
 	 * @param sample

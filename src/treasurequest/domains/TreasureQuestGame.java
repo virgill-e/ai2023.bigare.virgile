@@ -1,7 +1,6 @@
 package treasurequest.domains;
 
 import treasurequest.io.CharArrayFileReader;
-import treasurequest.supervisors.views.TileType;
 
 /**
  * classe d'une partie de Treasure Quest
@@ -36,7 +35,7 @@ public class TreasureQuestGame {
 	 * renvoie la CaseMap de la partie en cours
 	 * @return
 	 */
-	public CaseMap getMap() {
+	public Iterable<Coordinate> getCoord() {
 		return this.caseMap;
 	}
 	
@@ -76,7 +75,7 @@ public class TreasureQuestGame {
 	 * renvoie le type de la case active
 	 * @return
 	 */
-	public TileType getActiveCaseType() {
+	public char getActiveCaseType() {
 		return caseMap.getCaseWithCoord(activeCoordinate).getType();
 	}
 	

@@ -9,13 +9,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import treasurequest.supervisors.views.TileType;
-
 /**
  * CaseMap gere une carte de jeu 2d en liant les coordonnées et les case de jeux
  * 
  * @author virgi
  *
+ *         Choix Interface de collection: -Mon interface est une Map car elle
+ *         doit me permettre de retrouver rapidement une valeur (Case) sur base
+ *         d’une clé (Coordinate), j'utilise les operations get(),put() et keySet().
+ *
+ *         Choix implementation de collection: -Mon implementation est une
+ *         HashMap car l'odre de mes elements n'a pas d'importance, j'utilise
+ *         les operations get() et put(K,V) qui ont toute deux une CTT de O(1)
+ *         ainsi que la méthode keySet().
  */
 public class CaseMap implements Iterable<Coordinate> {
 	private final Map<Coordinate, Case> cases;
@@ -35,7 +41,7 @@ public class CaseMap implements Iterable<Coordinate> {
 	public CaseMap(char[][] mapSample) {
 		cases = new HashMap<Coordinate, Case>();
 		addAllCaseToMap(Arrays.copyOf(mapSample, mapSample.length));
-		getAllCasesCanBeDug();
+		setAllTreasures();
 	}
 
 	/*
@@ -44,6 +50,7 @@ public class CaseMap implements Iterable<Coordinate> {
 
 	/**
 	 * renvoie la une case en fonction des coordonnées reçu en parametre
+	 * 
 	 * @param coord
 	 * @return
 	 */
@@ -63,7 +70,7 @@ public class CaseMap implements Iterable<Coordinate> {
 
 	@Override
 	public Iterator<Coordinate> iterator() {
-		return this.cases.keySet().iterator();
+		return Collections.unmodifiableSet(this.cases.keySet()).iterator();
 	}
 
 	/*
@@ -74,18 +81,19 @@ public class CaseMap implements Iterable<Coordinate> {
 	 * Mets les cases creusable dans une liste Shuffle cette liste set les 10 *
 	 * premier % de case de cette liste avec un tresor
 	 */
-	private void getAllCasesCanBeDug() {
+	private List<Coordinate> getAllCasesCanBeDug() {
 		List<Coordinate> coordCreusable = new ArrayList<Coordinate>();
 		for (Coordinate coord : cases.keySet()) {
-			if (cases.get(coord).getType() != TileType.WATER) {
+			if (cases.get(coord).getType() != 'W') {
 				coordCreusable.add(coord);
 			}
 		}
 		Collections.shuffle(coordCreusable);
-		setAllTreasures(coordCreusable);
+		return coordCreusable;
 	}
-	
-	private void setAllTreasures(List<Coordinate> coordCreusable) {
+
+	private void setAllTreasures() {
+		List<Coordinate> coordCreusable=getAllCasesCanBeDug();
 		Random random = new Random();
 		int valeur;
 		this.nbTreasure = (int) (coordCreusable.size() * 0.1);
@@ -98,15 +106,17 @@ public class CaseMap implements Iterable<Coordinate> {
 	}
 
 	private void addAllCaseToMap(char[][] mapSample) {
+		int centerX=mapSample[0].length/2;
+		int centerY=mapSample.length/2;
 		for (int i = 0; i < mapSample.length; i++) {
+			centerX=Math.min(centerX, mapSample[i].length/2);
 			for (int j = 0; j < mapSample[i].length; j++) {
 				Case actualCase = new Case(mapSample[i][j]);
 				Coordinate coord = new Coordinate(j, i);
 				cases.put(coord, actualCase);
-				if (i == mapSample.length / 2 && j == mapSample[0].length / 2)
-					center = coord;
 			}
 		}
+		center=new Coordinate(centerX, centerY);
 	}
 
 }

@@ -7,8 +7,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import treasurequest.io.CharArrayFileReader;
-import treasurequest.supervisors.views.TileType;
 
 class CaseTest {
 
@@ -21,13 +19,13 @@ class CaseTest {
 	
 	@ParameterizedTest
 	@CsvSource({
-	    "S, SAND",
-	    "P, GRASSLAND",
-	    "F, FOREST",
-	    "R, ROCK",
-	    "W, WATER"
+	    "S, S",
+	    "P, P",
+	    "F, F",
+	    "R, R",
+	    "W, W"
 	})
-	void getCost(char letter, TileType type) {
+	void getType(char letter, char type) {
 	    Case actualCase = new Case(letter);
 	    assertEquals(type, actualCase.getType());
 	}

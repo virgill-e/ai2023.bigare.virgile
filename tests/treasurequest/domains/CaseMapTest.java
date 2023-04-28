@@ -3,16 +3,12 @@ package treasurequest.domains;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import treasurequest.io.CharArrayFileReader;
-import treasurequest.supervisors.views.TileType;
 
 class CaseMapTest {
 	private static final String PATH="resources/maps/map-sample.txt";
@@ -28,8 +24,8 @@ class CaseMapTest {
 	void getCaseWithCoord() {
 		char[][] tabMap=CharArrayFileReader.parseFile(PATH);
 		CaseMap caseMap=new CaseMap(tabMap);
-		assertEquals(caseMap.getCaseWithCoord(new Coordinate(0, 0)).getType(), TileType.WATER);
-		assertEquals(caseMap.getCaseWithCoord(new Coordinate(1, 1)).getType(), TileType.SAND);
+		assertEquals(caseMap.getCaseWithCoord(new Coordinate(0, 0)).getType(), 'W');
+		assertEquals(caseMap.getCaseWithCoord(new Coordinate(1, 1)).getType(), 'S');
 		assertNull(caseMap.getCaseWithCoord(null));
 	}
 	

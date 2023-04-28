@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import treasurequest.supervisors.views.TileType;
-
 class TreasureQuestGameTest {
 	private static final String SAMPLE="resources/maps/map-sample-2.txt";
 
@@ -19,8 +17,8 @@ class TreasureQuestGameTest {
 	@Test
 	void getMap() {
 		TreasureQuestGame tqg=new TreasureQuestGame(SAMPLE);
-		assertTrue(tqg.getMap()!=null);
-		assertTrue(tqg.getMap() instanceof CaseMap);
+		assertTrue(tqg.getCoord()!=null);
+		assertTrue(tqg.getCoord() instanceof CaseMap);
 	}
 	
 	@Test
@@ -33,7 +31,7 @@ class TreasureQuestGameTest {
 	@Test
 	void getTypeActive() {
 		TreasureQuestGame tqg=new TreasureQuestGame(SAMPLE);
-		assertEquals(TileType.ROCK, tqg.getActiveCaseType());
+		assertEquals('R', tqg.getActiveCaseType());
 	}
 	
 	@Test

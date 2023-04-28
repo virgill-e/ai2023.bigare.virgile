@@ -1,6 +1,5 @@
 package treasurequest.domains;
 
-import treasurequest.supervisors.views.TileType;
 
 /**
  * CaseType permet d'identifier les attributs d'une case en fonction de son
@@ -12,7 +11,7 @@ import treasurequest.supervisors.views.TileType;
 public class CaseType {
 	private static final int SAND_COST = 1;
 
-	private final TileType type;
+	private final char type;
 
 	/*
 	 * CONSTRUCTORS
@@ -23,7 +22,7 @@ public class CaseType {
 	 * 
 	 * @param type
 	 */
-	public CaseType(TileType type) {
+	public CaseType(char type) {
 		this.type = type;
 	}
 
@@ -31,7 +30,7 @@ public class CaseType {
 	 * PUBLIC METHODS
 	 */
 
-	public TileType getType() {
+	public char getType() {
 		return this.type;
 	}
 
@@ -40,11 +39,11 @@ public class CaseType {
 	 * @return
 	 */
 	public int getCost() {
-		if (type == TileType.GRASSLAND)
+		if (type == 'P')
 			return SAND_COST * 2;
-		else if (type == TileType.FOREST)
+		else if (type == 'F')
 			return SAND_COST * 3;
-		else if (type == TileType.ROCK)
+		else if (type == 'R')
 			return SAND_COST * 5;
 		return 1;
 	}
@@ -54,7 +53,7 @@ public class CaseType {
 	 * @return
 	 */
 	public boolean canBeDug() {
-		return this.type != TileType.WATER;
+		return this.type != 'W';
 	}
 	
 	/*

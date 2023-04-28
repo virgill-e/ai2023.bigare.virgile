@@ -18,8 +18,8 @@ class CoordinateTest {
 		assertEquals(2, coord.getCoordinateY());
 		
 		Coordinate coord2 = new Coordinate(-1, 2);
-		assertEquals(1, coord.getCoordinateX());
-		assertEquals(2, coord.getCoordinateY());
+		assertEquals(1, coord2.getCoordinateX());
+		assertEquals(2, coord2.getCoordinateY());
 	}
 	
 	@Test

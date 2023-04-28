@@ -3,6 +3,7 @@ package treasurequest.supervisors;
 import java.util.List;
 import treasurequest.supervisors.views.ViewNames;
 import treasurequest.domains.TreasureQuestGameFactory;
+import treasurequest.domains.iTreasureQuestGameFactory;
 import treasurequest.supervisors.views.*;
 
 
@@ -18,12 +19,23 @@ public class MainMenuSupervisor {
 	private static final int EXIT_ITEM = 1;
 	
 	private MainMenuView view;
-	private TreasureQuestGameFactory factory;
+	private final iTreasureQuestGameFactory factory;
 
-	
-	public MainMenuSupervisor(TreasureQuestGameFactory factory) {
+	/*
+	 * CONSTRUCTORS
+	 */
+	/**
+	 * constructeur de MainMenuSupervisor reçoit en parametre La factory pour creer
+	 * une partie
+	 * @param factory2
+	 */
+	public MainMenuSupervisor(iTreasureQuestGameFactory factory) {
 		this.factory=factory;
 	}
+	
+	/*
+	 * PUBLIC METHODS
+	 */
 	
 	public void setView(MainMenuView view) {
 		if(view == null) {
@@ -45,11 +57,13 @@ public class MainMenuSupervisor {
 			view.confirmExit();
 		}
 		if(NEW_GAME_ITEM==itemPos) {
+			this.factory.createGame();
 			view.goTo(ViewNames.PLAY_GAME);
 		}
-		
-		//TODO : Démarrer une nouvelle partie (done)
-		//TODO : naviguer vers l'écran de jeu (done)
 	}
+	
+	/*
+	 * PRIVATE METHODS
+	 */
 
 }

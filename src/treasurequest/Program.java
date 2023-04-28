@@ -3,6 +3,7 @@ package treasurequest;
 import javax.swing.SwingUtilities;
 
 import treasurequest.domains.TreasureQuestGameFactory;
+import treasurequest.domains.iTreasureQuestGameFactory;
 import treasurequest.supervisors.*;
 import treasurequest.supervisors.views.ViewNames;
 import treasurequest.swing.*;
@@ -14,7 +15,7 @@ import treasurequest.swing.*;
  *
  */
 public class Program {
-	private static final String SAMPLE="resources/maps/map-sample-2.txt";
+	private static final String SAMPLE="resources/maps/map-sample.txt";
 
 	/**
 	 * Point d'entrée de l'application.
@@ -28,7 +29,7 @@ public class Program {
 		
 		
 		//TODO : définir les dépendances injectées au moment de construire les superviseurs
-		TreasureQuestGameFactory factory=new TreasureQuestGameFactory(SAMPLE);
+		iTreasureQuestGameFactory factory=new TreasureQuestGameFactory(SAMPLE);
 		
 		var menuSupervisor = new MainMenuSupervisor(factory);
 		var playSupervisor = new PlayGameSupervisor(factory);

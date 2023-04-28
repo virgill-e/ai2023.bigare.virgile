@@ -1,6 +1,6 @@
 package treasurequest.domains;
 
-import treasurequest.supervisors.views.TileType;
+
 
 /**
  * Classe qui représente une case par son type
@@ -10,8 +10,8 @@ import treasurequest.supervisors.views.TileType;
  */
 public class Case {
 	private final CaseType type;
-	private int treasure = 0;
-	private boolean dug = false;
+	private int treasure;
+	private boolean dug;
 
 	/*
 	 * CONSTRUCTORS
@@ -22,24 +22,17 @@ public class Case {
 	 * 
 	 * @param type
 	 */
-	public Case(char type) {
-		if (type == 'S')
-			this.type = new CaseType(TileType.SAND);
-		else if (type == 'P')
-			this.type = new CaseType(TileType.GRASSLAND);
-		else if (type == 'F')
-			this.type = new CaseType(TileType.FOREST);
-		else if (type == 'R')
-			this.type = new CaseType(TileType.ROCK);
-		else
-			this.type = new CaseType(TileType.WATER);
+	public Case(char type) {	
+		this.dug=false;
+		this.treasure=0;
+		this.type=setType(type);
 	}
 
 	/*
 	 * PUBLIC METHODS
 	 */
 
-	public TileType getType() {
+	public char getType() {
 		return this.type.getType();
 	}
 
@@ -97,5 +90,10 @@ public class Case {
 	/*
 	 * PRIVATE METHODS
 	 */
-
+	private CaseType setType(char type) {
+		if (type == 'S'||type == 'P'||type == 'F'||type == 'R')
+			return new CaseType(type);
+		else
+			return new CaseType('W');
+	}
 }

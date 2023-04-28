@@ -1,6 +1,7 @@
 package treasurequest.supervisors;
 
 import treasurequest.domains.TreasureQuestGameFactory;
+import treasurequest.domains.iTreasureQuestGameFactory;
 import treasurequest.supervisors.views.GameOverView;
 
 /**
@@ -9,9 +10,13 @@ import treasurequest.supervisors.views.GameOverView;
  * */
 public class GameOverSupervisor {
 	private GameOverView view;
-	private TreasureQuestGameFactory factory;
+	private iTreasureQuestGameFactory factory;
 	
-	public GameOverSupervisor(TreasureQuestGameFactory factory) {
+	/*
+	 * CONSTRUCTORS
+	 */
+	
+	public GameOverSupervisor(iTreasureQuestGameFactory factory) {
 		this.factory=factory;
 	}
 
@@ -21,6 +26,10 @@ public class GameOverSupervisor {
 	public GameOverSupervisor() {
 		
 	}
+	
+	/*
+	 * PUBLIC METHODS
+	 */
 	
 	public void setView(GameOverView view) {
 		if(view == null) {
@@ -45,4 +54,8 @@ public class GameOverSupervisor {
 	public void onGoToMain() {
 		//TODO : retourner au menu principal
 	}
+	
+	/*
+	 * PRIVATE METHODS
+	 */
 }

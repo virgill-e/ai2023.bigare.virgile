@@ -24,8 +24,8 @@ class TreasureQuestGameTest {
 	@Test
 	void getActiveRowAndCol() {
 		TreasureQuestGame tqg=new TreasureQuestGame(SAMPLE);
-		assertEquals(2, tqg.getActiveCol());
 		assertEquals(3, tqg.getActiveRow());
+		assertEquals(2, tqg.getActiveCol());
 	}
 	
 	@Test

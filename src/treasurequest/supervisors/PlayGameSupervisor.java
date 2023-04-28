@@ -79,7 +79,6 @@ public class PlayGameSupervisor {
 			view.setActiveCase(game.getActiveCol(), game.getActiveRow());
 			panelDisplay();
 		}
-
 	}
 
 	/**
@@ -129,7 +128,7 @@ public class PlayGameSupervisor {
 	private void drawMap() {
 		for (Coordinate c : game.getCoord()) {
 			char actualChar = game.getCaseTypeWithCoord(c);
-			view.setTileAt(whatType(actualChar), c.getCoordinateY(), c.getCoordinateX());
+			view.setTileAt(whatType(actualChar), c.getCoordinateX(), c.getCoordinateY());
 		}
 	}
 

@@ -1,7 +1,7 @@
 package treasurequest.domains;
 
 /**
- * La classe player represente un joueur possédant des pieces
+ * La class player represente un joueur possédant des pieces
  * @author virgi
  *
  */

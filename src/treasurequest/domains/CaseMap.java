@@ -24,6 +24,9 @@ import java.util.Random;
  *         ainsi que la méthode keySet().
  */
 public class CaseMap implements Iterable<Coordinate> {
+	private static final double TEN_PERCENT=0.1;
+	
+	
 	private final Map<Coordinate, Case> cases;
 	private Coordinate center;
 	private int nbTreasure;
@@ -78,25 +81,27 @@ public class CaseMap implements Iterable<Coordinate> {
 	 */
 
 	/**
-	 * Mets les cases creusable dans une liste Shuffle cette liste set les 10 *
-	 * premier % de case de cette liste avec un tresor
+	 * Renvoie une liste melange de toute les cases qui peuvent etre creuse
 	 */
 	private List<Coordinate> getAllCasesCanBeDug() {
 		List<Coordinate> coordCreusable = new ArrayList<Coordinate>();
 		for (Coordinate coord : cases.keySet()) {
-			if (cases.get(coord).getType() != 'W') {
+			if (cases.get(coord).canBeDug()) {
 				coordCreusable.add(coord);
 			}
 		}
 		Collections.shuffle(coordCreusable);
 		return coordCreusable;
 	}
-
+	
+	/**
+	 * ajoute un tresor au 10 premier % des case creusable
+	 */
 	private void setAllTreasures() {
 		List<Coordinate> coordCreusable=getAllCasesCanBeDug();
 		Random random = new Random();
 		int valeur;
-		this.nbTreasure = (int) (coordCreusable.size() * 0.1);
+		this.nbTreasure = (int) (coordCreusable.size() * TEN_PERCENT);
 		if (coordCreusable.size() > 0)
 			this.nbTreasure = Math.max(1, this.nbTreasure);
 		for (int i = 0; i < this.nbTreasure; i++) {
@@ -112,7 +117,7 @@ public class CaseMap implements Iterable<Coordinate> {
 			centerX=Math.min(centerX, mapSample[i].length/2);
 			for (int j = 0; j < mapSample[i].length; j++) {
 				Case actualCase = new Case(mapSample[i][j]);
-				Coordinate coord = new Coordinate(j, i);
+				Coordinate coord = new Coordinate(i, j);
 				cases.put(coord, actualCase);
 			}
 		}

@@ -1,6 +1,5 @@
 package treasurequest.supervisors;
 
-import treasurequest.domains.CaseMap;
 import treasurequest.domains.Coordinate;
 import treasurequest.domains.TreasureQuestGame;
 import treasurequest.domains.iTreasureQuestGameFactory;
@@ -129,13 +128,12 @@ public class PlayGameSupervisor {
 
 	private void drawMap() {
 		for (Coordinate c : game.getCoord()) {
-			///TODO
-			char actualChar=game.getCaseWithCoord(c).getType();
+			char actualChar = game.getCaseTypeWithCoord(c);
 			view.setTileAt(whatType(actualChar), c.getCoordinateY(), c.getCoordinateX());
 		}
 	}
-	
-	private TileType whatType(char type){
+
+	private TileType whatType(char type) {
 		if (type == 'S')
 			return TileType.SAND;
 		else if (type == 'P')

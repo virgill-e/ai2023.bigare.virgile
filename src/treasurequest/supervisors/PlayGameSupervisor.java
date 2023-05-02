@@ -47,7 +47,6 @@ public class PlayGameSupervisor {
 		if (view == null) {
 			return;
 		}
-
 		this.view = view;
 	}
 
@@ -76,7 +75,7 @@ public class PlayGameSupervisor {
 		if (ViewNames.MAIN_MENU.equals(fromView)) {
 			game = factory.getGame();
 			drawMap();
-			view.setActiveCase(game.getActiveCol(), game.getActiveRow());
+			view.setActiveCase(game.getActiveRow(), game.getActiveCol());
 			panelDisplay();
 		}
 	}
@@ -128,7 +127,7 @@ public class PlayGameSupervisor {
 	private void drawMap() {
 		for (Coordinate c : game.getCoord()) {
 			char actualChar = game.getCaseTypeWithCoord(c);
-			view.setTileAt(whatType(actualChar), c.getCoordinateX(), c.getCoordinateY());
+			view.setTileAt(whatType(actualChar), c.getRow(), c.getCol());
 		}
 	}
 

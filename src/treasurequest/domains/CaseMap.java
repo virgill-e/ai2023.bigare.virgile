@@ -1,7 +1,6 @@
 package treasurequest.domains;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -43,7 +42,7 @@ public class CaseMap implements Iterable<Coordinate> {
 	 */
 	public CaseMap(char[][] mapSample) {
 		cases = new HashMap<Coordinate, Case>();
-		addAllCaseToMap(Arrays.copyOf(mapSample, mapSample.length));
+		addAllCaseToMap(mapSample);
 		setAllTreasures();
 	}
 
@@ -111,17 +110,17 @@ public class CaseMap implements Iterable<Coordinate> {
 	}
 
 	private void addAllCaseToMap(char[][] mapSample) {
-		int centerX=mapSample[0].length/2;
-		int centerY=mapSample.length/2;
+		int row=mapSample[0].length/2;
+		int col=mapSample.length/2;
 		for (int i = 0; i < mapSample.length; i++) {
-			centerX=Math.min(centerX, mapSample[i].length/2);
+			row=Math.min(row, mapSample[i].length/2);
 			for (int j = 0; j < mapSample[i].length; j++) {
 				Case actualCase = new Case(mapSample[i][j]);
-				Coordinate coord = new Coordinate(i, j);
+				Coordinate coord = new Coordinate(j, i);
 				cases.put(coord, actualCase);
 			}
 		}
-		center=new Coordinate(centerX, centerY);
+		center=new Coordinate(row, col);
 	}
 
 }

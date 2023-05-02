@@ -14,12 +14,12 @@ class CoordinateTest {
 	@Test
 	void CorrectCoordinate() {
 		Coordinate coord = new Coordinate(1, 2);
-		assertEquals(1, coord.getCoordinateX());
-		assertEquals(2, coord.getCoordinateY());
+		assertEquals(1, coord.getCol());
+		assertEquals(2, coord.getRow());
 		
 		Coordinate coord2 = new Coordinate(-1, 2);
-		assertEquals(1, coord2.getCoordinateX());
-		assertEquals(2, coord2.getCoordinateY());
+		assertEquals(1, coord2.getCol());
+		assertEquals(2, coord2.getRow());
 	}
 	
 	@Test

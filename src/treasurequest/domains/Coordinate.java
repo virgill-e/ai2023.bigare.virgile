@@ -8,8 +8,8 @@ import java.util.Objects;
  * cree des coordonnees x et y 
  */
 public class Coordinate {
-	private final int coordinateX;
-	private final int coordinateY;
+	private final int col;
+	private final int row;
 	
 	/*
 	 * CONSTRUCTORS
@@ -20,21 +20,21 @@ public class Coordinate {
 	 * @param coordX
 	 * @param coordY
 	 */
-	public Coordinate(int coordX,int coordY) {
-		coordinateX=Math.abs(coordX);
-		coordinateY=Math.abs(coordY);
+	public Coordinate(int col,int row) {
+		this.col=Math.abs(col);
+		this.row=Math.abs(row);
 	}
 	
 	/*
 	 * PUBLIC METHODS
 	 */
 
-	public int getCoordinateX() {
-		return coordinateX;
+	public int getCol() {
+		return col;
 	}
 
-	public int getCoordinateY() {
-		return coordinateY;
+	public int getRow() {
+		return row;
 	}
 	
 	@Override
@@ -46,12 +46,12 @@ public class Coordinate {
             return false;
         }
         Coordinate other = (Coordinate) obj;
-        return coordinateX == other.coordinateX && coordinateY == other.coordinateY;
+        return col == other.col && row == other.row;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(coordinateX, coordinateY);
+        return Objects.hash(col, row);
     }
     
     /*

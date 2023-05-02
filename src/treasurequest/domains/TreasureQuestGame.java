@@ -48,7 +48,7 @@ public class TreasureQuestGame {
 	 * @return
 	 */
 	public int getActiveRow() {
-		return this.activeCoordinate.getCoordinateX();
+		return this.activeCoordinate.getRow();
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class TreasureQuestGame {
 	 * @return
 	 */
 	public int getActiveCol() {
-		return this.activeCoordinate.getCoordinateY();
+		return this.activeCoordinate.getCol();
 	}
 
 	/**

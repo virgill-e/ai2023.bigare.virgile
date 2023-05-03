@@ -34,7 +34,7 @@ public class TreasureQuestGame {
 	 */
 
 	/**
-	 * renvoie la CaseMap de la partie en cours
+	 * Renvoie la CaseMap de la partie en cours
 	 * 
 	 * @return
 	 */

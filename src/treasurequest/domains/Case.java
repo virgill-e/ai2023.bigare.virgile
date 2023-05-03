@@ -102,6 +102,6 @@ public class Case {
 		if (type == 'S'||type == 'P'||type == 'F'||type == 'R')
 			return new CaseType(type);
 		else
-			return new CaseType('W');
+			return new CaseType('X');
 	}
 }

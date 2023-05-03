@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * 
  * @author virgi
- * cree des coordonnees x et y 
+ * cree des coordonnees row et col 
  */
 public class Coordinate {
 	private final int col;
@@ -16,7 +16,7 @@ public class Coordinate {
 	 */
 	
 	/**
-	 * constructeur d'une coordonnée prenant en param la valeur x et y
+	 * constructeur d'une coordonnée prenant en param la valeur row et col
 	 * @param coordX
 	 * @param coordY
 	 */

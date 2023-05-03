@@ -53,7 +53,7 @@ public class CaseType {
 	 * @return
 	 */
 	public boolean canBeDug() {
-		return this.type != 'W';
+		return this.type != 'X';
 	}
 	
 	/*

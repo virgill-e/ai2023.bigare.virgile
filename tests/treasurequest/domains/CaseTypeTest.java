@@ -42,7 +42,7 @@ class CaseTypeTest {
 	
 	@Test
 	void canBeDug() {
-		CaseType water=new CaseType('W');
+		CaseType water=new CaseType('X');
 		CaseType forest=new CaseType('F');
 		CaseType grassland=new CaseType('P');
 		CaseType rock=new CaseType('R');

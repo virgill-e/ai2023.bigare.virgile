@@ -67,8 +67,8 @@ public class PlayGameSupervisor {
 	 * CaseMap: Doit etre initialise en connaisant toute ses cases et avoir pose des
 	 * tresor sur 10% de ses cases creusables
 	 * 
-	 * Case: Chaque cases doivent etre initialise, ne pas avoir ete creuse savoir si
-	 * elle contiennet un tresor et savoir leur type
+	 * Case: Chaque cases doivent etre initialise, ne pas etre creuse, savoir si
+	 * elle contiennet un tresor et connaitre leur type
 	 * 
 	 */
 	public void onEnter(String fromView) {
@@ -132,14 +132,10 @@ public class PlayGameSupervisor {
 	}
 
 	private TileType whatType(char type) {
-		if (type == 'S')
-			return TileType.SAND;
-		else if (type == 'P')
-			return TileType.GRASSLAND;
-		else if (type == 'F')
-			return TileType.FOREST;
-		else if (type == 'R')
-			return TileType.ROCK;
+		if (type == 'S')return TileType.SAND;
+		else if (type == 'P')return TileType.GRASSLAND;
+		else if (type == 'F')return TileType.FOREST;
+		else if (type == 'R')return TileType.ROCK;
 		else
 			return TileType.WATER;
 	}

@@ -23,7 +23,7 @@ class CaseTest {
 	    "P, P",
 	    "F, F",
 	    "R, R",
-	    "W, W"
+	    "X, X"
 	})
 	void getType(char letter, char type) {
 	    Case actualCase = new Case(letter);
@@ -69,6 +69,16 @@ class CaseTest {
 		assertFalse(actualCase.isDug());
 		actualCase.setDug();
 		assertTrue(actualCase.isDug());
+	}
+	
+	@Test
+	void canBeDebug() {
+		Case actualCase = new Case('S');
+		assertTrue(actualCase.canBeDug());
+		actualCase = new Case('R');
+		assertTrue(actualCase.canBeDug());
+		actualCase = new Case('W');
+		assertFalse(actualCase.canBeDug());
 	}
 
 }

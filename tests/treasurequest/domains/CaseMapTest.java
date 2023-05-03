@@ -24,7 +24,7 @@ class CaseMapTest {
 	void getCaseWithCoord() {
 		char[][] tabMap=CharArrayFileReader.parseFile(PATH);
 		CaseMap caseMap=new CaseMap(tabMap);
-		assertEquals(caseMap.getCaseWithCoord(new Coordinate(0, 0)).getType(), 'W');
+		assertEquals(caseMap.getCaseWithCoord(new Coordinate(0, 0)).getType(), 'X');
 		assertEquals(caseMap.getCaseWithCoord(new Coordinate(1, 1)).getType(), 'S');
 		assertNull(caseMap.getCaseWithCoord(null));
 	}

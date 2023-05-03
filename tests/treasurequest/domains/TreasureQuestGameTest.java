@@ -52,6 +52,13 @@ class TreasureQuestGameTest {
 		assertEquals(1, tqg.getNbTreasur());
 	}
 	
+	@Test
+	void getCaseTypeWithCoord() {
+		TreasureQuestGame tqg=new TreasureQuestGame(SAMPLE);
+		assertEquals(tqg.getCaseTypeWithCoord(new Coordinate(0, 0)),'X');
+		assertEquals(tqg.getCaseTypeWithCoord(new Coordinate(1, 1)),'P');
+	}
+	
 	
 	
 

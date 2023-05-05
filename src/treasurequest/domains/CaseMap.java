@@ -54,8 +54,6 @@ public class CaseMap implements Iterable<Coordinate> {
 	 * PUBLIC METHODS
 	 */
 
-	
-
 	/**
 	 * renvoie la une case en fonction des coordonnées reçu en parametre
 	 * 
@@ -111,7 +109,7 @@ public class CaseMap implements Iterable<Coordinate> {
 			this.nbTreasure = Math.max(1, this.nbTreasure);
 		for (int i = 0; i < this.nbTreasure; i++) {
 			valeur = random.nextInt(21 - 10) + 10;
-			Coordinate CoordWithTreasure=coordsCanDig.get(i);
+			Coordinate CoordWithTreasure = coordsCanDig.get(i);
 			cases.get(CoordWithTreasure).setTreasure(valeur);
 			treasores.add(CoordWithTreasure);
 		}
@@ -130,20 +128,29 @@ public class CaseMap implements Iterable<Coordinate> {
 		}
 		center = new Coordinate(row, col);
 	}
-	
+
 	private void setAllClues() {
-		for(Coordinate coord:treasores) {
-			List<Coordinate> neighbors=getNeighbors(coord);
-			for(Coordinate neighbor:neighbors) {
-				//savoir la position du voisin par rapport à la case
-				//si la case a deja un indice mettre la meilleur possibilité (le coffre est stocké dans le clue)
+		for (Coordinate coord : treasores) {
+			List<Coordinate> neighbors = getNeighbors(coord);
+			for (Coordinate neighbor : neighbors) {
+				// savoir la position du voisin par rapport à la case
+				// si la case a deja un indice mettre la meilleur possibilité (le coffre est
+				// stocké dans le clue)
 			}
 		}
 	}
-	
-	private List<Coordinate> getNeighbors(Coordinate central){
-		List<Coordinate> neighbors=new ArrayList<Coordinate>();
-		//TODO recuperer les 24 voisins
+
+	private CardinalPoints getDirection(Coordinate neighbor, Coordinate origin) {
+		// TODO: trouver la direction du voisin vers l'origin et retouner cette
+		// direction
+		if(neighbor.getCol()<origin.getCol()) {
+			//l'indice pointe vers le nord
+		}
+	}
+
+	private List<Coordinate> getNeighbors(Coordinate central) {
+		List<Coordinate> neighbors = new ArrayList<Coordinate>();
+		// TODO recuperer les 24 voisins
 		return neighbors;
 	}
 

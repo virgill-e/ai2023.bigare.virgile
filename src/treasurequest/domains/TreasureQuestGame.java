@@ -149,4 +149,5 @@ public class TreasureQuestGame {
 		if(!caseDig.canBeDug())return false;
 		return player.getCoins()>=caseDig.getCost();
 	}
+
 }

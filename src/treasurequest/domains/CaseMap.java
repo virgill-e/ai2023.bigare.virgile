@@ -26,6 +26,7 @@ import java.util.Random;
  */
 public class CaseMap implements Iterable<Coordinate> {
 	private static final double TEN_PERCENT = 0.1;
+	private static final double NEIGHBOR_SIZE = 5;
 
 	private final Map<Coordinate, Case> cases;
 	private List<Coordinate> treasores;
@@ -44,6 +45,7 @@ public class CaseMap implements Iterable<Coordinate> {
 	 */
 	public CaseMap(char[][] mapSample) {
 		Objects.requireNonNull(mapSample);
+		treasores=new ArrayList<Coordinate>();
 		cases = new HashMap<Coordinate, Case>();
 		addAllCaseToMap(mapSample);
 		setAllTreasures();
@@ -129,28 +131,65 @@ public class CaseMap implements Iterable<Coordinate> {
 		center = new Coordinate(row, col);
 	}
 
+	/**
+	 * set l'indice a chaque casse qui peut en avoir une
+	 */
 	private void setAllClues() {
 		for (Coordinate coord : treasores) {
 			List<Coordinate> neighbors = getNeighbors(coord);
-			for (Coordinate neighbor : neighbors) {
-				// savoir la position du voisin par rapport à la case
-				// si la case a deja un indice mettre la meilleur possibilité (le coffre est
-				// stocké dans le clue)
+			for (Coordinate coordCeighbor : neighbors) {
+				CardinalPoints cardinalpoint=getDirection(coordCeighbor, coord);
+				Case caseNeighbor = cases.get(coordCeighbor);
+				if(caseNeighbor.getClue()==null) {
+					caseNeighbor.setClue(new Clue(cardinalpoint, coordCeighbor));
+				}
+				else {
+					//TODO: verifier la meilleur possibilité
+				}
+
 			}
 		}
 	}
 
+	/**
+	 * renvoie la direction de la case voisine vers la case origin
+	 * @param neighbor
+	 * @param origin
+	 * @return
+	 */
 	private CardinalPoints getDirection(Coordinate neighbor, Coordinate origin) {
-		// TODO: trouver la direction du voisin vers l'origin et retouner cette
-		// direction
+		String value="";
 		if(neighbor.getCol()<origin.getCol()) {
-			//l'indice pointe vers le nord
+			value+="N";
 		}
+		else if(neighbor.getCol()>origin.getCol()) {
+			value+="S";
+		}
+		
+		if(neighbor.getRow()<origin.getRow()) {
+			value+="E";
+		}
+		else if(neighbor.getRow()>origin.getRow()) {
+			value+="O";
+		}
+		return CardinalPoints.valueOf(value);
 	}
 
+	/**
+	 * recupere tout les voisin
+	 * @param central
+	 * @return
+	 */
 	private List<Coordinate> getNeighbors(Coordinate central) {
 		List<Coordinate> neighbors = new ArrayList<Coordinate>();
-		// TODO recuperer les 24 voisins
+		int end=(int) (NEIGHBOR_SIZE/2);
+		int start=end*-1;
+		for(int row=start;row<end;row++) {
+			for(int col=start;col<end;col++) {
+				Coordinate neighbor=new Coordinate(central.getCol()+col, central.getRow()+row);
+				if(cases.containsKey(neighbor)&&!neighbor.equals(central))neighbors.add(neighbor);
+			}
+		}
 		return neighbors;
 	}
 

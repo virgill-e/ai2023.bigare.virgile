@@ -23,7 +23,14 @@ public class CaseType {
 	 * @param type
 	 */
 	public CaseType(char type) {
-		this.type = type;
+		this.type = isGoodType(type);
+	}
+	
+	public static CaseType setType(char type) {
+		if (type == 'S'||type == 'P'||type == 'F'||type == 'R')
+			return new CaseType(type);
+		else
+			return new CaseType('X');
 	}
 
 	/*
@@ -45,7 +52,9 @@ public class CaseType {
 			return SAND_COST * 3;
 		else if (type == 'R')
 			return SAND_COST * 5;
-		return 1;
+		else if(type=='S')
+			return SAND_COST;
+		return 0;
 	}
 
 	/**
@@ -56,7 +65,23 @@ public class CaseType {
 		return this.type != 'X';
 	}
 	
+	
+	
+	
+	
 	/*
 	 * PRIVATE METHODS
 	 */
+	
+	private char isGoodType(char type) {
+		if (type == 'P')
+			return type;
+		else if (type == 'F')
+			return type;
+		else if (type == 'R')
+			return type;
+		else if(type=='S')
+			return type;
+		return 'X';
+	}
 }

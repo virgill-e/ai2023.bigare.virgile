@@ -34,6 +34,11 @@ public class Player {
 		this.coins=Math.max(0, this.coins);
 	}
 	
+	public void addCoins(int value) {
+		this.coins+=Math.abs(value);
+		this.coins=Math.max(0, this.coins);
+	}
+	
 	public int getCoins() {
 		return this.coins;
 	}

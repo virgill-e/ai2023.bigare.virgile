@@ -1,5 +1,7 @@
 package treasurequest.domains;
 
+import java.util.Map;
+
 import treasurequest.io.CharArrayFileReader;
 
 /**
@@ -11,7 +13,7 @@ import treasurequest.io.CharArrayFileReader;
 public class TreasureQuestGame {
 	private final CaseMap caseMap;
 	private final Player player;
-	private final Coordinate activeCoordinate;
+	private Coordinate activeCoordinate;
 
 	/*
 	 * CONSTRUCTORS
@@ -23,8 +25,8 @@ public class TreasureQuestGame {
 	 * 
 	 * @param sample
 	 */
-	public TreasureQuestGame(String sample) {
-		this.caseMap = new CaseMap(CharArrayFileReader.parseFile(sample));
+	public TreasureQuestGame(CaseMap map) {
+		this.caseMap = map;
 		this.player = new Player(caseMap.getNbTreasure() * 2);
 		this.activeCoordinate = caseMap.getCenter();
 	}
@@ -111,11 +113,40 @@ public class TreasureQuestGame {
 	/**
 	 * mets a jour la case active
 	 */
-//	public void updateActiveCase() {
-//		//TODO: later
-//	}
+	
+	
+	public void updateActiveCase(int deltaRow,int deltaCol) {
+		int Col=activeCoordinate.getCol();
+		int Row=activeCoordinate.getRow();
+		Coordinate newActiveCase=new Coordinate(Col+deltaCol, Row+deltaRow);
+		if(caseMap.caseExist(newActiveCase)) {
+			activeCoordinate=newActiveCase;
+		}
+	}
+
+	public boolean dig() {
+		Case caseDig=caseMap.getCaseWithCoord(activeCoordinate);
+		if(canDig(caseDig)) {
+			player.substractCoins(caseDig.getCost());
+			if(caseDig.hasTreasure()) {
+				player.addCoins(caseDig.getTreasureValue());
+				caseDig.removeTreasure();
+				caseMap.substractTreasure();
+			}
+			caseDig.setDug();
+			return true;
+		}
+		return false;
+	}
 
 	/*
 	 * PRIVATE METHODS
 	 */
+	private boolean canDig(Case caseDig) {
+		
+		if(caseDig==null)return false;
+		if(caseDig.isDug())return false;
+		if(!caseDig.canBeDug())return false;
+		return player.getCoins()>=caseDig.getCost();
+	}
 }

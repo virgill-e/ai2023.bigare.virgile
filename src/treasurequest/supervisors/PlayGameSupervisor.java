@@ -1,9 +1,12 @@
 package treasurequest.supervisors;
 
+import java.util.Objects;
+
 import treasurequest.domains.Coordinate;
 import treasurequest.domains.TreasureQuestGame;
 import treasurequest.domains.iTreasureQuestGameFactory;
 import treasurequest.supervisors.views.PlayGameView;
+import treasurequest.supervisors.views.SpriteType;
 import treasurequest.supervisors.views.TileType;
 import treasurequest.supervisors.views.ViewNames;
 
@@ -33,6 +36,7 @@ public class PlayGameSupervisor {
 	 * @param factory2
 	 */
 	public PlayGameSupervisor(iTreasureQuestGameFactory factory) {
+		Objects.requireNonNull(factory);
 		this.factory = factory;
 	}
 
@@ -90,6 +94,9 @@ public class PlayGameSupervisor {
 	public void onMove(int deltaRow, int deltaCol) {
 		// TODO : valider et changer de case active. Appelez les méthodes adéquates de
 		// la vue.
+		game.updateActiveCase(deltaRow, deltaCol);
+		view.setActiveCase(game.getActiveRow(), game.getActiveCol());
+		panelDisplay();
 	}
 
 	/**
@@ -100,6 +107,10 @@ public class PlayGameSupervisor {
 	public void onDig() {
 		// TODO : creuser si possible
 		// TODO : appelez la méthode setSpriteAt(...) de la vue
+		if(game.dig()) {
+			view.setSpriteAt(SpriteType.DUG, game.getActiveRow(), game.getActiveCol());
+		}
+		panelDisplay();
 	}
 
 	/**

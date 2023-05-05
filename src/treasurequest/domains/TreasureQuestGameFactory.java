@@ -1,5 +1,7 @@
 package treasurequest.domains;
 
+import treasurequest.io.CharArrayFileReader;
+
 /**
  * factory permet d'initialiser une partie de TreasureQuestGame
  * 
@@ -15,7 +17,7 @@ package treasurequest.domains;
  *         Hashmap -> O(1), get() surArrayList-> O(1), Case.setTreasure() ->
  *         O(1).
  *         
- *         La CTT vaut O(c)+O(T)
+ *         La CTT vaut O(c)+O(t)
  *         La complexite est donc linéaire
  *         
  * 
@@ -43,7 +45,7 @@ public class TreasureQuestGameFactory implements iTreasureQuestGameFactory {
 	 * Initialise une instance de TreasureQuestGame
 	 */
 	public void createGame() {
-		game = new TreasureQuestGame(this.sample);
+		game = new TreasureQuestGame(new CaseMap(CharArrayFileReader.parseFile(sample)));
 	}
 
 	/**

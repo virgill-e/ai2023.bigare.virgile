@@ -1,6 +1,8 @@
 package treasurequest.supervisors;
 
 import java.util.List;
+import java.util.Objects;
+
 import treasurequest.supervisors.views.ViewNames;
 import treasurequest.domains.TreasureQuestGameFactory;
 import treasurequest.domains.iTreasureQuestGameFactory;
@@ -30,6 +32,7 @@ public class MainMenuSupervisor {
 	 * @param factory2
 	 */
 	public MainMenuSupervisor(iTreasureQuestGameFactory factory) {
+		Objects.requireNonNull(factory);
 		this.factory=factory;
 	}
 	

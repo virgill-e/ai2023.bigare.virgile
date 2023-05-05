@@ -12,6 +12,7 @@ public class Case {
 	private final CaseType type;
 	private int treasure;
 	private boolean dug;
+	private Clue clue;
 
 	/*
 	 * CONSTRUCTORS
@@ -25,7 +26,8 @@ public class Case {
 	public Case(char type) {	
 		this.dug=false;
 		this.treasure=0;
-		this.type=setType(type);
+		this.type=CaseType.setType(type);
+		clue=null;
 	}
 
 	/*
@@ -53,6 +55,10 @@ public class Case {
 	 */
 	public void setTreasure(int value) {
 		this.treasure = Math.max(10, Math.min(value, 20));
+	}
+	
+	public void removeTreasure() {
+		this.treasure=0;
 	}
 
 	/**
@@ -94,14 +100,17 @@ public class Case {
 	public void setDug() {
 		this.dug = true;
 	}
+	
+	public void setClue(Clue clue) {
+		this.clue=clue;
+	}
+	
+	public Clue getClue() {
+		return this.clue;
+	}
 
 	/*
 	 * PRIVATE METHODS
 	 */
-	private CaseType setType(char type) {
-		if (type == 'S'||type == 'P'||type == 'F'||type == 'R')
-			return new CaseType(type);
-		else
-			return new CaseType('X');
-	}
+
 }

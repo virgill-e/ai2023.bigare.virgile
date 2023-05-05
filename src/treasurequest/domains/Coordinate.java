@@ -21,8 +21,8 @@ public class Coordinate {
 	 * @param coordY
 	 */
 	public Coordinate(int col,int row) {
-		this.col=Math.abs(col);
-		this.row=Math.abs(row);
+		this.col=col;
+		this.row=row;
 	}
 	
 	/*
@@ -42,7 +42,7 @@ public class Coordinate {
         if (this == obj) {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (!(obj instanceof Coordinate)) {
             return false;
         }
         Coordinate other = (Coordinate) obj;

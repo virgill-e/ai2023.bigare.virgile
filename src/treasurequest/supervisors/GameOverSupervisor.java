@@ -1,5 +1,7 @@
 package treasurequest.supervisors;
 
+import java.util.Objects;
+
 import treasurequest.domains.TreasureQuestGameFactory;
 import treasurequest.domains.iTreasureQuestGameFactory;
 import treasurequest.supervisors.views.GameOverView;
@@ -17,6 +19,7 @@ public class GameOverSupervisor {
 	 */
 	
 	public GameOverSupervisor(iTreasureQuestGameFactory factory) {
+		Objects.requireNonNull(factory);
 		this.factory=factory;
 	}
 

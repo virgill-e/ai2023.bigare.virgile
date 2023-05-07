@@ -3,7 +3,7 @@ package treasurequest;
 import javax.swing.SwingUtilities;
 
 import treasurequest.domains.TreasureQuestGameFactory;
-import treasurequest.domains.iTreasureQuestGameFactory;
+import treasurequest.domains.ITreasureQuestGameFactory;
 import treasurequest.supervisors.*;
 import treasurequest.supervisors.views.ViewNames;
 import treasurequest.swing.*;
@@ -29,7 +29,7 @@ public class Program {
 		
 		
 		//TODO : définir les dépendances injectées au moment de construire les superviseurs
-		iTreasureQuestGameFactory factory=new TreasureQuestGameFactory(SAMPLE);
+		ITreasureQuestGameFactory factory=new TreasureQuestGameFactory(SAMPLE);
 		
 		var menuSupervisor = new MainMenuSupervisor(factory);
 		var playSupervisor = new PlayGameSupervisor(factory);

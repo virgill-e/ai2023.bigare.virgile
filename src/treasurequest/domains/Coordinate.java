@@ -8,7 +8,7 @@ import java.util.Objects;
  * 
  * @author virgi cree des coordonnees row et col
  */
-public class Coordinate {
+public class Coordinate implements Comparable<Coordinate>{
 	private static final double NEIGHBOR_SIZE = 5;
 
 	private final int col;
@@ -83,15 +83,29 @@ public class Coordinate {
 		}
 		return neighbors;
 	}
+	
+	@Override
+	public int compareTo(Coordinate o) {
+		if (this.row != o.row) {
+	        // Si les coordonnées n'ont pas la même ligne, on les compare en fonction de leur ligne
+	        return Integer.compare(this.row, o.row);
+	    } else {
+	        // Si les coordonnées ont la même ligne, on les compare en fonction de leur colonne
+	        return Integer.compare(this.col, o.col);
+	    }
+	}
 
+
+
+
+	/*
+	 * PRIVATE METHODS
+	 */
+	
 	private double calculateDistance(Coordinate that) {
 		double distance = Math.pow(this.getRow() - that.getRow(), 2) + Math.pow(this.getCol() - that.getCol(), 2);
 		distance = Math.sqrt(distance);
 		return distance;
 	}
-
-	/*
-	 * PRIVATE METHODS
-	 */
 
 }

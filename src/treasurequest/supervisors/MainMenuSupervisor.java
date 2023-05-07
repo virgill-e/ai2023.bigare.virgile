@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import treasurequest.supervisors.views.ViewNames;
 import treasurequest.domains.TreasureQuestGameFactory;
-import treasurequest.domains.iTreasureQuestGameFactory;
+import treasurequest.domains.ITreasureQuestGameFactory;
 import treasurequest.supervisors.views.*;
 
 
@@ -21,7 +21,7 @@ public class MainMenuSupervisor {
 	private static final int EXIT_ITEM = 1;
 	
 	private MainMenuView view;
-	private final iTreasureQuestGameFactory factory;
+	private final ITreasureQuestGameFactory factory;
 
 	/*
 	 * CONSTRUCTORS
@@ -31,7 +31,7 @@ public class MainMenuSupervisor {
 	 * une partie
 	 * @param factory2
 	 */
-	public MainMenuSupervisor(iTreasureQuestGameFactory factory) {
+	public MainMenuSupervisor(ITreasureQuestGameFactory factory) {
 		Objects.requireNonNull(factory);
 		this.factory=factory;
 	}

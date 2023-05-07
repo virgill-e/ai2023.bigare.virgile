@@ -32,6 +32,7 @@ public class CaseMap implements Iterable<Coordinate> {
 	private final Map<Coordinate, Case> cases;
 	private List<Coordinate> treasures;
 	private Coordinate center;
+	private final IRandomCoordinate random;
 
 	/*
 	 * CONSTRUCTORS
@@ -43,8 +44,10 @@ public class CaseMap implements Iterable<Coordinate> {
 	 * 
 	 * @param mapSample
 	 */
-	public CaseMap(char[][] mapSample) {
+	public CaseMap(char[][] mapSample,IRandomCoordinate random) {
 		Objects.requireNonNull(mapSample);
+		Objects.requireNonNull(random);
+		this.random=random;
 		treasures = new ArrayList<Coordinate>();
 		cases = new HashMap<Coordinate, Case>();
 		addAllCaseToMap(mapSample);
@@ -110,7 +113,7 @@ public class CaseMap implements Iterable<Coordinate> {
 				coordCreusable.add(coord);
 			}
 		}
-		Collections.shuffle(coordCreusable);
+		this.random.shuffle(coordCreusable);
 		return coordCreusable;
 	}
 
@@ -158,8 +161,8 @@ public class CaseMap implements Iterable<Coordinate> {
 				if (caseNeighbor == null || caseNeighbor.hasTreasure()) {
 					continue;
 				}
-				CardinalPoints cardinalpoint = getDirection(coordNeighbor, coordTrasure);
 				if (caseNeighbor.getClue() == null) {
+					CardinalPoints cardinalpoint = getDirection(coordNeighbor, coordTrasure);
 					caseNeighbor.setClue(new Clue(cardinalpoint, coordTrasure));
 				} else {
 					Coordinate coordOrigin = caseNeighbor.getClue().getOriginTreasure();
@@ -247,17 +250,17 @@ public class CaseMap implements Iterable<Coordinate> {
 	/**
 	 * recupere tout les voisin
 	 * 
-	 * @param central
+	 * @param center
 	 * @return
 	 */
-	private List<Coordinate> getNeighbors(Coordinate central) {
+	private List<Coordinate> getNeighbors(Coordinate center) {
 		List<Coordinate> neighbors = new ArrayList<Coordinate>();
 		int end = (int) (NEIGHBOR_SIZE / 2);
 		int start = end * -1;
 		for (int row = start; row <= end; row++) {
 			for (int col = start; col <= end; col++) {
-				Coordinate neighbor = new Coordinate(central.getCol() + col, central.getRow() + row);
-				if (cases.containsKey(neighbor) && !cases.get(neighbor).hasTreasure())
+				Coordinate neighbor = new Coordinate(center.getCol() + col, center.getRow() + row);
+				if (cases.containsKey(neighbor)&& !cases.get(neighbor).hasTreasure())
 					neighbors.add(neighbor);
 			}
 		}

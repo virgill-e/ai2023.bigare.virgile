@@ -5,7 +5,7 @@ package treasurequest.domains;
  * @author virgi
  *
  */
-public interface iTreasureQuestGameFactory {
+public interface ITreasureQuestGameFactory {
 
 	/**
 	 * Initialise une instance de TreasureQuestGame

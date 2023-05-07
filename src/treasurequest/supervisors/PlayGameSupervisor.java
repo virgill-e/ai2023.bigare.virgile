@@ -6,7 +6,7 @@ import treasurequest.domains.CardinalPoints;
 import treasurequest.domains.Case;
 import treasurequest.domains.Coordinate;
 import treasurequest.domains.TreasureQuestGame;
-import treasurequest.domains.iTreasureQuestGameFactory;
+import treasurequest.domains.ITreasureQuestGameFactory;
 import treasurequest.supervisors.views.PlayGameView;
 import treasurequest.supervisors.views.SpriteType;
 import treasurequest.supervisors.views.TileType;
@@ -24,7 +24,7 @@ public class PlayGameSupervisor {
 	private static final String ACTIVE_TYPE = "Type case active: %s";
 
 	private PlayGameView view;
-	private final iTreasureQuestGameFactory factory;
+	private final ITreasureQuestGameFactory factory;
 	private TreasureQuestGame game;
 
 	/*
@@ -37,7 +37,7 @@ public class PlayGameSupervisor {
 	 * 
 	 * @param factory2
 	 */
-	public PlayGameSupervisor(iTreasureQuestGameFactory factory) {
+	public PlayGameSupervisor(ITreasureQuestGameFactory factory) {
 		Objects.requireNonNull(factory);
 		this.factory = factory;
 	}

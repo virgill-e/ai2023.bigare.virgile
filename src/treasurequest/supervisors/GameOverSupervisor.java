@@ -3,7 +3,7 @@ package treasurequest.supervisors;
 import java.util.Objects;
 
 import treasurequest.domains.TreasureQuestGameFactory;
-import treasurequest.domains.iTreasureQuestGameFactory;
+import treasurequest.domains.ITreasureQuestGameFactory;
 import treasurequest.supervisors.views.GameOverView;
 
 /**
@@ -12,13 +12,13 @@ import treasurequest.supervisors.views.GameOverView;
  * */
 public class GameOverSupervisor {
 	private GameOverView view;
-	private iTreasureQuestGameFactory factory;
+	private ITreasureQuestGameFactory factory;
 	
 	/*
 	 * CONSTRUCTORS
 	 */
 	
-	public GameOverSupervisor(iTreasureQuestGameFactory factory) {
+	public GameOverSupervisor(ITreasureQuestGameFactory factory) {
 		Objects.requireNonNull(factory);
 		this.factory=factory;
 	}

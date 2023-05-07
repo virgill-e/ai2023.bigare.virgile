@@ -22,7 +22,7 @@ import treasurequest.io.CharArrayFileReader;
  *         
  * 
  */
-public class TreasureQuestGameFactory implements iTreasureQuestGameFactory {
+public class TreasureQuestGameFactory implements ITreasureQuestGameFactory {
 
 	private TreasureQuestGame game;
 	private final String sample;
@@ -45,7 +45,7 @@ public class TreasureQuestGameFactory implements iTreasureQuestGameFactory {
 	 * Initialise une instance de TreasureQuestGame
 	 */
 	public void createGame() {
-		game = new TreasureQuestGame(new CaseMap(CharArrayFileReader.parseFile(sample)));
+		game = new TreasureQuestGame(new CaseMap(CharArrayFileReader.parseFile(sample), new RandomCoordinate()));
 	}
 
 	/**

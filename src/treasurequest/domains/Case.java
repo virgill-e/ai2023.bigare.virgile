@@ -57,6 +57,9 @@ public class Case {
 		this.treasure = Math.max(10, Math.min(value, 20));
 	}
 	
+	/**
+	 * 
+	 */
 	public void removeTreasure() {
 		this.treasure=0;
 	}

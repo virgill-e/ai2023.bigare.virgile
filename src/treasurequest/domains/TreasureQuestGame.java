@@ -1,8 +1,5 @@
 package treasurequest.domains;
 
-import java.util.Map;
-
-import treasurequest.io.CharArrayFileReader;
 
 /**
  * class d'une partie de Treasure Quest
@@ -113,22 +110,27 @@ public class TreasureQuestGame {
 	/**
 	 * mets a jour la case active
 	 */
-	
-	
-	public void updateActiveCase(int deltaRow,int deltaCol) {
-		int Col=activeCoordinate.getCol();
-		int Row=activeCoordinate.getRow();
-		Coordinate newActiveCase=new Coordinate(Col+deltaCol, Row+deltaRow);
-		if(caseMap.caseExist(newActiveCase)) {
-			activeCoordinate=newActiveCase;
+
+	public void updateActiveCase(int deltaRow, int deltaCol) {
+		int Col = activeCoordinate.getCol();
+		int Row = activeCoordinate.getRow();
+		Coordinate newActiveCase = new Coordinate(Col + deltaCol, Row + deltaRow);
+		if (caseMap.caseExist(newActiveCase)) {
+			activeCoordinate = newActiveCase;
 		}
 	}
 
+	/**
+	 * Creuse a l'emplacement de la case active et renvoie true si elle a reussi a
+	 * creuser ou false si la case ne peut être creuse
+	 * 
+	 * @return
+	 */
 	public boolean dig() {
-		Case caseDig=caseMap.getCaseWithCoord(activeCoordinate);
-		if(canDig(caseDig)) {
+		Case caseDig = caseMap.getCaseWithCoord(activeCoordinate);
+		if (canDig(caseDig)) {
 			player.substractCoins(caseDig.getCost());
-			if(caseDig.hasTreasure()) {
+			if (caseDig.hasTreasure()) {
 				player.addCoins(caseDig.getTreasureValue());
 				caseDig.removeTreasure();
 				caseMap.substractTreasure();
@@ -143,11 +145,14 @@ public class TreasureQuestGame {
 	 * PRIVATE METHODS
 	 */
 	private boolean canDig(Case caseDig) {
-		
-		if(caseDig==null)return false;
-		if(caseDig.isDug())return false;
-		if(!caseDig.canBeDug())return false;
-		return player.getCoins()>=caseDig.getCost();
+
+		if (caseDig == null)
+			return false;
+		if (caseDig.isDug())
+			return false;
+		if (!caseDig.canBeDug())
+			return false;
+		return player.getCoins() >= caseDig.getCost();
 	}
 
 }

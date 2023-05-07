@@ -107,7 +107,7 @@ public class PlayGameSupervisor {
 	public void onDig() {
 		// TODO : creuser si possible
 		// TODO : appelez la méthode setSpriteAt(...) de la vue
-		if(game.dig()) {
+		if (game.dig()) {
 			view.setSpriteAt(SpriteType.DUG, game.getActiveRow(), game.getActiveCol());
 		}
 		panelDisplay();
@@ -143,10 +143,14 @@ public class PlayGameSupervisor {
 	}
 
 	private TileType whatType(char type) {
-		if (type == 'S')return TileType.SAND;
-		else if (type == 'P')return TileType.GRASSLAND;
-		else if (type == 'F')return TileType.FOREST;
-		else if (type == 'R')return TileType.ROCK;
+		if (type == 'S')
+			return TileType.SAND;
+		else if (type == 'P')
+			return TileType.GRASSLAND;
+		else if (type == 'F')
+			return TileType.FOREST;
+		else if (type == 'R')
+			return TileType.ROCK;
 		else
 			return TileType.WATER;
 	}

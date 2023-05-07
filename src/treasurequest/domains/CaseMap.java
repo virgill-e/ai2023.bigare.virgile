@@ -45,7 +45,7 @@ public class CaseMap implements Iterable<Coordinate> {
 	 */
 	public CaseMap(char[][] mapSample) {
 		Objects.requireNonNull(mapSample);
-		treasores=new ArrayList<Coordinate>();
+		treasores = new ArrayList<Coordinate>();
 		cases = new HashMap<Coordinate, Case>();
 		addAllCaseToMap(mapSample);
 		setAllTreasures();
@@ -138,13 +138,12 @@ public class CaseMap implements Iterable<Coordinate> {
 		for (Coordinate coord : treasores) {
 			List<Coordinate> neighbors = getNeighbors(coord);
 			for (Coordinate coordCeighbor : neighbors) {
-				CardinalPoints cardinalpoint=getDirection(coordCeighbor, coord);
+				CardinalPoints cardinalpoint = getDirection(coordCeighbor, coord);
 				Case caseNeighbor = cases.get(coordCeighbor);
-				if(caseNeighbor.getClue()==null) {
+				if (caseNeighbor.getClue() == null) {
 					caseNeighbor.setClue(new Clue(cardinalpoint, coordCeighbor));
-				}
-				else {
-					//TODO: verifier la meilleur possibilité
+				} else {
+					// TODO: verifier la meilleur possibilité
 				}
 
 			}
@@ -153,41 +152,42 @@ public class CaseMap implements Iterable<Coordinate> {
 
 	/**
 	 * renvoie la direction de la case voisine vers la case origin
+	 * 
 	 * @param neighbor
 	 * @param origin
 	 * @return
 	 */
 	private CardinalPoints getDirection(Coordinate neighbor, Coordinate origin) {
-		String value="";
-		if(neighbor.getCol()<origin.getCol()) {
-			value+="N";
+		String value = "";
+		if (neighbor.getCol() < origin.getCol()) {
+			value += "N";
+		} else if (neighbor.getCol() > origin.getCol()) {
+			value += "S";
 		}
-		else if(neighbor.getCol()>origin.getCol()) {
-			value+="S";
-		}
-		
-		if(neighbor.getRow()<origin.getRow()) {
-			value+="E";
-		}
-		else if(neighbor.getRow()>origin.getRow()) {
-			value+="O";
+
+		if (neighbor.getRow() < origin.getRow()) {
+			value += "E";
+		} else if (neighbor.getRow() > origin.getRow()) {
+			value += "O";
 		}
 		return CardinalPoints.valueOf(value);
 	}
 
 	/**
 	 * recupere tout les voisin
+	 * 
 	 * @param central
 	 * @return
 	 */
 	private List<Coordinate> getNeighbors(Coordinate central) {
 		List<Coordinate> neighbors = new ArrayList<Coordinate>();
-		int end=(int) (NEIGHBOR_SIZE/2);
-		int start=end*-1;
-		for(int row=start;row<end;row++) {
-			for(int col=start;col<end;col++) {
-				Coordinate neighbor=new Coordinate(central.getCol()+col, central.getRow()+row);
-				if(cases.containsKey(neighbor)&&!neighbor.equals(central))neighbors.add(neighbor);
+		int end = (int) (NEIGHBOR_SIZE / 2);
+		int start = end * -1;
+		for (int row = start; row < end; row++) {
+			for (int col = start; col < end; col++) {
+				Coordinate neighbor = new Coordinate(central.getCol() + col, central.getRow() + row);
+				if (cases.containsKey(neighbor) && !neighbor.equals(central))
+					neighbors.add(neighbor);
 			}
 		}
 		return neighbors;

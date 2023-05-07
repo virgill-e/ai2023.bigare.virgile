@@ -2,6 +2,8 @@ package treasurequest.supervisors;
 
 import java.util.Objects;
 
+import treasurequest.domains.CardinalPoints;
+import treasurequest.domains.Case;
 import treasurequest.domains.Coordinate;
 import treasurequest.domains.TreasureQuestGame;
 import treasurequest.domains.iTreasureQuestGameFactory;
@@ -105,10 +107,13 @@ public class PlayGameSupervisor {
 	 * Ne fais rien si la case active a déjà été creusee ou si elle est de type Eau.
 	 */
 	public void onDig() {
-		// TODO : creuser si possible
-		// TODO : appelez la méthode setSpriteAt(...) de la vue
 		if (game.dig()) {
 			view.setSpriteAt(SpriteType.DUG, game.getActiveRow(), game.getActiveCol());
+			CardinalPoints cardinalPoint = game.getCardinalPoints();
+			if (cardinalPoint != null) {
+				view.setSpriteAt(SpriteType.valueOf(cardinalPoint.toString()), game.getActiveRow(),
+						game.getActiveCol());
+			}
 		}
 		panelDisplay();
 	}
@@ -139,6 +144,10 @@ public class PlayGameSupervisor {
 		for (Coordinate c : game.getCoord()) {
 			char actualChar = game.getCaseTypeWithCoord(c);
 			view.setTileAt(whatType(actualChar), c.getRow(), c.getCol());
+			Case caseafac = game.getCaseWithCoord(c);// AFAC
+			CardinalPoints cardinalPoint = caseafac.getCardinalPoint();// AFAC
+			if (cardinalPoint != null)
+				view.setSpriteAt(SpriteType.valueOf(caseafac.getCardinalPoint().toString()), c.getRow(), c.getCol());
 		}
 	}
 

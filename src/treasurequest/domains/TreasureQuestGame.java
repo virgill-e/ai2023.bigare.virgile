@@ -1,6 +1,5 @@
 package treasurequest.domains;
 
-
 /**
  * class d'une partie de Treasure Quest
  * 
@@ -132,13 +131,23 @@ public class TreasureQuestGame {
 			player.substractCoins(caseDig.getCost());
 			if (caseDig.hasTreasure()) {
 				player.addCoins(caseDig.getTreasureValue());
+				caseMap.removeTreasure(activeCoordinate);
 				caseDig.removeTreasure();
-				caseMap.substractTreasure();
 			}
 			caseDig.setDug();
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * renvoie le le point cardinal correspondant à l'indice de la case, null si pas
+	 * d'indice
+	 * 
+	 * @return
+	 */
+	public CardinalPoints getCardinalPoints() {
+		return caseMap.getCaseWithCoord(activeCoordinate).getCardinalPoint();
 	}
 
 	/*
@@ -153,6 +162,11 @@ public class TreasureQuestGame {
 		if (!caseDig.canBeDug())
 			return false;
 		return player.getCoins() >= caseDig.getCost();
+	}
+
+	public Case getCaseWithCoord(Coordinate c) {//afac
+		return caseMap.getCaseWithCoord(c);
+		
 	}
 
 }

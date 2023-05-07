@@ -112,6 +112,13 @@ public class Case {
 		return this.clue;
 	}
 
+	public CardinalPoints getCardinalPoint() {
+		if(this.clue==null)return null;
+		return this.clue.getCardinalPoint();
+	}
+	
+	
+
 	/*
 	 * PRIVATE METHODS
 	 */

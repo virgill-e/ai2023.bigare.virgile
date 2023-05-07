@@ -27,11 +27,11 @@ import java.util.Random;
 public class CaseMap implements Iterable<Coordinate> {
 	private static final double TEN_PERCENT = 0.1;
 	private static final double NEIGHBOR_SIZE = 5;
+	private static final Coordinate TOP_LEFT = new Coordinate(0, 0);
 
 	private final Map<Coordinate, Case> cases;
-	private List<Coordinate> treasores;
+	private List<Coordinate> treasures;
 	private Coordinate center;
-	private int nbTreasure;
 
 	/*
 	 * CONSTRUCTORS
@@ -45,7 +45,7 @@ public class CaseMap implements Iterable<Coordinate> {
 	 */
 	public CaseMap(char[][] mapSample) {
 		Objects.requireNonNull(mapSample);
-		treasores = new ArrayList<Coordinate>();
+		treasures = new ArrayList<Coordinate>();
 		cases = new HashMap<Coordinate, Case>();
 		addAllCaseToMap(mapSample);
 		setAllTreasures();
@@ -69,11 +69,26 @@ public class CaseMap implements Iterable<Coordinate> {
 	}
 
 	public int getNbTreasure() {
-		return this.nbTreasure;
+		return this.treasures.size();
 	}
 
 	public Coordinate getCenter() {
 		return center;
+	}
+
+	/**
+	 * Verifie si la coordinate envoyé en parametre existe dans le Map de jeu
+	 * 
+	 * @param coord
+	 * @return
+	 */
+	public boolean caseExist(Coordinate coord) {
+		return cases.containsKey(coord);
+	}
+
+	public void removeTreasure(Coordinate activeCoordinate) {
+		treasures.remove(activeCoordinate);
+
 	}
 
 	@Override
@@ -106,14 +121,14 @@ public class CaseMap implements Iterable<Coordinate> {
 		List<Coordinate> coordsCanDig = getAllCasesCanBeDug();
 		Random random = new Random();
 		int valeur;
-		this.nbTreasure = (int) (coordsCanDig.size() * TEN_PERCENT);
+		int nbTreasure = (int) (coordsCanDig.size() * TEN_PERCENT);
 		if (coordsCanDig.size() > 0)
-			this.nbTreasure = Math.max(1, this.nbTreasure);
-		for (int i = 0; i < this.nbTreasure; i++) {
+			nbTreasure = Math.max(1, nbTreasure);
+		for (int i = 0; i < nbTreasure; i++) {
 			valeur = random.nextInt(21 - 10) + 10;
 			Coordinate CoordWithTreasure = coordsCanDig.get(i);
 			cases.get(CoordWithTreasure).setTreasure(valeur);
-			treasores.add(CoordWithTreasure);
+			treasures.add(CoordWithTreasure);
 		}
 	}
 
@@ -135,19 +150,87 @@ public class CaseMap implements Iterable<Coordinate> {
 	 * set l'indice a chaque casse qui peut en avoir une
 	 */
 	private void setAllClues() {
-		for (Coordinate coord : treasores) {
-			List<Coordinate> neighbors = getNeighbors(coord);
-			for (Coordinate coordCeighbor : neighbors) {
-				CardinalPoints cardinalpoint = getDirection(coordCeighbor, coord);
-				Case caseNeighbor = cases.get(coordCeighbor);
+		for (Coordinate coordTrasure : treasures) {
+			List<Coordinate> neighbors = coordTrasure.getNeighbors();
+			for (Coordinate coordNeighbor : neighbors) {
+				Case caseNeighbor = cases.get(coordNeighbor);
+
+				if (caseNeighbor == null || caseNeighbor.hasTreasure()) {
+					continue;
+				}
+				CardinalPoints cardinalpoint = getDirection(coordNeighbor, coordTrasure);
 				if (caseNeighbor.getClue() == null) {
-					caseNeighbor.setClue(new Clue(cardinalpoint, coordCeighbor));
+					caseNeighbor.setClue(new Clue(cardinalpoint, coordTrasure));
 				} else {
-					// TODO: verifier la meilleur possibilité
+					Coordinate coordOrigin = caseNeighbor.getClue().getOriginTreasure();
+					betterClue(coordNeighbor, coordOrigin, coordTrasure);
+
 				}
 
 			}
 		}
+	}
+
+	/**
+	 * attribut l'indice sur la case en fonction de la distance, la valeur, et le
+	 * plus proche du coin superieir gauche
+	 * 
+	 * @param CoordOrigin
+	 * @param coordNeighbor
+	 * @param objective
+	 */
+	private void betterClue(Coordinate coordNeighbor, Coordinate coordOrigin, Coordinate coordTrasure) {
+		Coordinate betterCoord = betterClueClosest(coordNeighbor, coordOrigin, coordTrasure);
+		if (betterCoord != null) {
+			setClueOnCase(coordNeighbor, betterCoord);
+			return;
+		}
+		betterCoord = betterClueValue(coordOrigin, coordTrasure);
+		if (betterCoord != null) {
+			setClueOnCase(coordNeighbor, betterCoord);
+			return;
+		}
+		betterCoord = betterClueClosest(TOP_LEFT, coordOrigin, coordNeighbor);
+		if (betterCoord != null) {
+			setClueOnCase(coordNeighbor, betterCoord);
+		}
+	}
+
+	private void setClueOnCase(Coordinate myCase, Coordinate objective) {
+		if (myCase.equals(objective))
+			return;
+		CardinalPoints cardinalpoint = getDirection(myCase, objective);
+		cases.get(myCase).setClue(new Clue(cardinalpoint, myCase));
+	}
+
+	/**
+	 * renvoie la coordonne du tresor ayant la plus groose valeur, null si distance
+	 * egal
+	 * 
+	 * @param coordOrigin
+	 * @param coordTrasure
+	 * @param coordTrasure
+	 * @return
+	 */
+	private Coordinate betterClueValue(Coordinate coordOrigin, Coordinate coordTrasure) {
+		if (cases.get(coordTrasure).getTreasureValue() < cases.get(coordOrigin).getTreasureValue()) {
+			return coordOrigin;
+		} else if (cases.get(coordTrasure).getTreasureValue() > cases.get(coordOrigin).getTreasureValue()) {
+			return coordTrasure;
+		}
+		return null;
+	}
+
+	/**
+	 * renvoie la coordonne la plus proche de objective, null si distance egal
+	 * 
+	 * @param coordOrigin
+	 * @param coordNeighbor
+	 * @param objective
+	 * @return
+	 */
+	private Coordinate betterClueClosest(Coordinate coordNeighbor, Coordinate coordOrigin, Coordinate coordTreasure) {
+		return coordNeighbor.getClosest(coordOrigin, coordTreasure);
 	}
 
 	/**
@@ -158,19 +241,7 @@ public class CaseMap implements Iterable<Coordinate> {
 	 * @return
 	 */
 	private CardinalPoints getDirection(Coordinate neighbor, Coordinate origin) {
-		String value = "";
-		if (neighbor.getCol() < origin.getCol()) {
-			value += "N";
-		} else if (neighbor.getCol() > origin.getCol()) {
-			value += "S";
-		}
-
-		if (neighbor.getRow() < origin.getRow()) {
-			value += "E";
-		} else if (neighbor.getRow() > origin.getRow()) {
-			value += "O";
-		}
-		return CardinalPoints.valueOf(value);
+		return ClueGenerator.getDirection(neighbor, origin);
 	}
 
 	/**
@@ -183,31 +254,14 @@ public class CaseMap implements Iterable<Coordinate> {
 		List<Coordinate> neighbors = new ArrayList<Coordinate>();
 		int end = (int) (NEIGHBOR_SIZE / 2);
 		int start = end * -1;
-		for (int row = start; row < end; row++) {
-			for (int col = start; col < end; col++) {
+		for (int row = start; row <= end; row++) {
+			for (int col = start; col <= end; col++) {
 				Coordinate neighbor = new Coordinate(central.getCol() + col, central.getRow() + row);
-				if (cases.containsKey(neighbor) && !neighbor.equals(central))
+				if (cases.containsKey(neighbor) && !cases.get(neighbor).hasTreasure())
 					neighbors.add(neighbor);
 			}
 		}
 		return neighbors;
-	}
-
-	/**
-	 * Verifie si la coordinate envoyé en parametre existe dans le Map de jeu
-	 * 
-	 * @param coord
-	 * @return
-	 */
-	public boolean caseExist(Coordinate coord) {
-		return cases.containsKey(coord);
-	}
-
-	/**
-	 * Soustrait un trésor au compteur de tresor
-	 */
-	public void substractTreasure() {
-		nbTreasure -= 1;
 	}
 
 }

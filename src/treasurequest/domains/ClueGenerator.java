@@ -4,7 +4,12 @@ import java.util.StringJoiner;
 
 public class ClueGenerator {
 	
-	public static CardinalPoints getDirection(Coordinate neighbor, Coordinate origin) {
+	public static Clue generateClue(Coordinate source, Coordinate objective) {
+		CardinalPoints cardinalpoint=getDirection(source, objective);
+		return new Clue(cardinalpoint, objective);
+	}
+	
+	private static CardinalPoints getDirection(Coordinate neighbor, Coordinate origin) {
 		StringJoiner value = new StringJoiner("_");
 		if (neighbor.getRow() < origin.getRow()) {
 			value.add("SOUTH");

@@ -26,7 +26,7 @@ public class Case {
 	public Case(char type) {	
 		this.dug=false;
 		this.treasure=0;
-		this.type=CaseType.setType(type);
+		this.type=CaseType.typeOf(type);
 		clue=null;
 	}
 

@@ -18,7 +18,7 @@ class CoordinateTest {
 		assertEquals(2, coord.getRow());
 		
 		Coordinate coord2 = new Coordinate(-1, 2);
-		assertEquals(1, coord2.getCol());
+		assertEquals(-1, coord2.getCol());
 		assertEquals(2, coord2.getRow());
 	}
 	

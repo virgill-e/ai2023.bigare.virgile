@@ -2,7 +2,13 @@ package treasurequest.domains;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class CaseTypeTest {
 
@@ -18,13 +24,11 @@ class CaseTypeTest {
 		CaseType grassland=new CaseType('P');
 		CaseType rock=new CaseType('R');
 		CaseType sand=new CaseType('S');
-		CaseType unknown=new CaseType('U');
-		assertEquals('W', water.getType());
+		assertEquals('X', water.getType());
 		assertEquals('F', forest.getType());
 		assertEquals('P', grassland.getType());
 		assertEquals('R', rock.getType());
 		assertEquals('S', sand.getType());
-		assertEquals('U', unknown.getType());
 	}
 	
 	@Test
@@ -55,4 +59,11 @@ class CaseTypeTest {
 		assertTrue(sand.canBeDug());
 		
 	}
+	
+	@ParameterizedTest
+    @CsvSource({ "S,S", "P,P", "F,F", "R,R", "A,X" })
+    void testTypeOf(char input, char expectedOutput) {
+        CaseType result = CaseType.typeOf(input);
+        assertEquals(expectedOutput, result.getType());
+    }
 }

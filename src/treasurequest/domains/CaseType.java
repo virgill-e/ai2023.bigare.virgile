@@ -26,7 +26,8 @@ public class CaseType {
 		this.type = isGoodType(type);
 	}
 	
-	public static CaseType setType(char type) {
+	
+	public static CaseType typeOf(char type) {
 		if (type == 'S'||type == 'P'||type == 'F'||type == 'R')
 			return new CaseType(type);
 		else

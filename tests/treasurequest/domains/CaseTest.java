@@ -7,41 +7,29 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-
 class CaseTest {
 
 	@ParameterizedTest
-	@ValueSource(chars = { 'S', 'P','F','R','W' })
+	@ValueSource(chars = { 'S', 'P', 'F', 'R', 'W' })
 	void isInstanceOf(char letter) {
-		Case actualCase=new Case(letter);
+		Case actualCase = new Case(letter);
 		assertTrue(actualCase instanceof Case);
 	}
-	
+
 	@ParameterizedTest
-	@CsvSource({
-	    "S, S",
-	    "P, P",
-	    "F, F",
-	    "R, R",
-	    "X, X"
-	})
+	@CsvSource({ "S, S", "P, P", "F, F", "R, R", "X, X" })
 	void getType(char letter, char type) {
-	    Case actualCase = new Case(letter);
-	    assertEquals(type, actualCase.getType());
+		Case actualCase = new Case(letter);
+		assertEquals(type, actualCase.getType());
 	}
-	
+
 	@ParameterizedTest
-	@CsvSource({
-	    "S, 1",
-	    "P, 2",
-	    "F, 3",
-	    "R, 5",
-	})
+	@CsvSource({ "S, 1", "P, 2", "F, 3", "R, 5", })
 	void getCost(char letter, int cost) {
-	    Case actualCase = new Case(letter);
-	    assertEquals(cost, actualCase.getCost());
+		Case actualCase = new Case(letter);
+		assertEquals(cost, actualCase.getCost());
 	}
-	
+
 	@Test
 	void setTreasureSetOnCase() {
 		Case actualCase = new Case('S');
@@ -54,7 +42,7 @@ class CaseTest {
 		actualCase.setTreasure(9);
 		assertEquals(10, actualCase.getTreasureValue());
 	}
-	
+
 	@Test
 	void checkIfHasTreasure() {
 		Case actualCase = new Case('S');
@@ -62,7 +50,7 @@ class CaseTest {
 		actualCase.setTreasure(10);
 		assertTrue(actualCase.hasTreasure());
 	}
-	
+
 	@Test
 	void checkIfIsDug() {
 		Case actualCase = new Case('S');
@@ -70,7 +58,7 @@ class CaseTest {
 		actualCase.setDug();
 		assertTrue(actualCase.isDug());
 	}
-	
+
 	@Test
 	void canBeDebug() {
 		Case actualCase = new Case('S');
@@ -81,4 +69,24 @@ class CaseTest {
 		assertFalse(actualCase.canBeDug());
 	}
 
+	@Test
+	void removeTreasure() {
+		Case actualCase = new Case('S');
+		actualCase.setTreasure(15);
+		assertEquals(15, actualCase.getTreasureValue());
+		actualCase.removeTreasure();
+		assertEquals(0, actualCase.getTreasureValue());
+	}
+
+	@Test
+	void setAndGetClue() {
+		Clue clue = new Clue(CardinalPoints.NORTH, new Coordinate(5, 5));
+		Case actualCase = new Case('S');
+		Case actualCaseNullClue = new Case('S');
+		actualCase.setClue(clue);
+		assertEquals(clue, actualCase.getClue());
+		assertEquals(clue.getCardinalPoint(), actualCase.getCardinalPoint());
+		assertNull(actualCaseNullClue.getClue());
+		assertNull(actualCaseNullClue.getCardinalPoint());
+	}
 }

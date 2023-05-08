@@ -166,8 +166,7 @@ public class CaseMap implements Iterable<Coordinate> {
 					continue;
 				}
 				if (caseNeighbor.getClue() == null) {
-					CardinalPoints cardinalpoint = getDirection(coordNeighbor, coordTrasure);
-					caseNeighbor.setClue(new Clue(cardinalpoint, coordTrasure));
+					caseNeighbor.setClue(ClueGenerator.generateClue(coordNeighbor, coordTrasure));
 				} else {
 					Coordinate coordOrigin = caseNeighbor.getClue().getOriginTreasure();
 					betterClue(coordNeighbor, coordOrigin, coordTrasure);
@@ -206,8 +205,7 @@ public class CaseMap implements Iterable<Coordinate> {
 	private void setClueOnCase(Coordinate myCase, Coordinate objective) {
 		if (myCase.equals(objective))
 			return;
-		CardinalPoints cardinalpoint = getDirection(myCase, objective);
-		cases.get(myCase).setClue(new Clue(cardinalpoint, objective));
+		cases.get(myCase).setClue(ClueGenerator.generateClue(myCase, objective));
 	}
 
 	/**
@@ -238,17 +236,6 @@ public class CaseMap implements Iterable<Coordinate> {
 	 */
 	private Coordinate betterClueClosest(Coordinate coordNeighbor, Coordinate coordOrigin, Coordinate coordTreasure) {
 		return coordNeighbor.getClosest(coordOrigin, coordTreasure);
-	}
-
-	/**
-	 * renvoie la direction de la case voisine vers la case origin
-	 * 
-	 * @param neighbor
-	 * @param origin
-	 * @return
-	 */
-	private CardinalPoints getDirection(Coordinate neighbor, Coordinate origin) {
-		return ClueGenerator.getDirection(neighbor, origin);
 	}
 
 

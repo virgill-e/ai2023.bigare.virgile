@@ -91,7 +91,6 @@ public class CaseMap implements Iterable<Coordinate> {
 
 	public void removeTreasure(Coordinate activeCoordinate) {
 		treasures.remove(activeCoordinate);
-
 	}
 
 	@Override
@@ -156,9 +155,14 @@ public class CaseMap implements Iterable<Coordinate> {
 		for (Coordinate coordTrasure : treasures) {
 			List<Coordinate> neighbors = coordTrasure.getNeighbors();
 			for (Coordinate coordNeighbor : neighbors) {
+				if(coordTrasure.getCol()==13&&coordTrasure.getRow()==0) {
+					if(coordNeighbor.getCol()==13&&coordNeighbor.getRow()==1) {
+						System.out.print(false);
+					}
+				}
 				Case caseNeighbor = cases.get(coordNeighbor);
 
-				if (caseNeighbor == null || caseNeighbor.hasTreasure()) {
+				if (caseNeighbor == null || caseNeighbor.hasTreasure()||!caseNeighbor.canBeDug()) {
 					continue;
 				}
 				if (caseNeighbor.getClue() == null) {
@@ -203,7 +207,7 @@ public class CaseMap implements Iterable<Coordinate> {
 		if (myCase.equals(objective))
 			return;
 		CardinalPoints cardinalpoint = getDirection(myCase, objective);
-		cases.get(myCase).setClue(new Clue(cardinalpoint, myCase));
+		cases.get(myCase).setClue(new Clue(cardinalpoint, objective));
 	}
 
 	/**
@@ -247,24 +251,5 @@ public class CaseMap implements Iterable<Coordinate> {
 		return ClueGenerator.getDirection(neighbor, origin);
 	}
 
-	/**
-	 * recupere tout les voisin
-	 * 
-	 * @param center
-	 * @return
-	 */
-	private List<Coordinate> getNeighbors(Coordinate center) {
-		List<Coordinate> neighbors = new ArrayList<Coordinate>();
-		int end = (int) (NEIGHBOR_SIZE / 2);
-		int start = end * -1;
-		for (int row = start; row <= end; row++) {
-			for (int col = start; col <= end; col++) {
-				Coordinate neighbor = new Coordinate(center.getCol() + col, center.getRow() + row);
-				if (cases.containsKey(neighbor)&& !cases.get(neighbor).hasTreasure())
-					neighbors.add(neighbor);
-			}
-		}
-		return neighbors;
-	}
 
 }

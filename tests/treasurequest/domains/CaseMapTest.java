@@ -16,14 +16,14 @@ class CaseMapTest {
 	@Test
 	void constructorInstanceOf() {
 		char[][] tabMap=CharArrayFileReader.parseFile(PATH);
-		CaseMap caseMap=new CaseMap(tabMap);
+		CaseMap caseMap=new CaseMap(tabMap,new FakeRandomCoordinate());
 		assertTrue(caseMap instanceof CaseMap);
 	}
 	
 	@Test
 	void getCaseWithCoord() {
 		char[][] tabMap=CharArrayFileReader.parseFile(PATH);
-		CaseMap caseMap=new CaseMap(tabMap);
+		CaseMap caseMap=new CaseMap(tabMap,new FakeRandomCoordinate());
 		assertEquals(caseMap.getCaseWithCoord(new Coordinate(0, 0)).getType(), 'X');
 		assertEquals(caseMap.getCaseWithCoord(new Coordinate(1, 1)).getType(), 'S');
 		assertNull(caseMap.getCaseWithCoord(null));
@@ -32,18 +32,18 @@ class CaseMapTest {
 	@Test
 	void getNbTreasure() {
 		char[][] tabMap=CharArrayFileReader.parseFile(PATH2);//dans cette carte il doit y avoir 1 trésor
-		CaseMap caseMap=new CaseMap(tabMap);
+		CaseMap caseMap=new CaseMap(tabMap,new FakeRandomCoordinate());
 		assertEquals(caseMap.getNbTreasure(), 1);
 		
 		char[][] tabMap2=CharArrayFileReader.parseFile(PATH);//dans cette carte il doit y avoir 20 trésor
-		CaseMap caseMap2=new CaseMap(tabMap2);
+		CaseMap caseMap2=new CaseMap(tabMap2,new FakeRandomCoordinate());
 		assertEquals(caseMap2.getNbTreasure(), 20);
 	}
 	
 	@Test
 	void getCenterMap() {
 		char[][] tabMap=CharArrayFileReader.parseFile(PATH2);
-		CaseMap caseMap=new CaseMap(tabMap);
+		CaseMap caseMap=new CaseMap(tabMap,new FakeRandomCoordinate());
 		assertEquals(caseMap.getCenter(),new Coordinate(3, 2));
 	}
 	
@@ -56,12 +56,30 @@ class CaseMapTest {
         expectedCoords.add(new Coordinate(1, 0));
         expectedCoords.add(new Coordinate(1, 1));
 
-        CaseMap caseMap = new CaseMap(tabMap);
+        CaseMap caseMap = new CaseMap(tabMap,new FakeRandomCoordinate());
         Iterator<Coordinate> it = caseMap.iterator();
 
         while (it.hasNext()) {
             assertTrue(expectedCoords.contains(it.next()));
         }
     }
+	
+	@Test
+	void testIfExistInMap() {
+		char[][] tabMap=CharArrayFileReader.parseFile(PATH);
+		CaseMap caseMap=new CaseMap(tabMap,new FakeRandomCoordinate());
+		
+		assertTrue(caseMap.caseExist(new Coordinate(0, 0)));
+		assertFalse(caseMap.caseExist(new Coordinate(-10, -3)));
+	}
+	
+	@Test
+	void removeTreasure() {
+		char[][] tabMap=CharArrayFileReader.parseFile(PATH);
+		CaseMap caseMap=new CaseMap(tabMap,new FakeRandomCoordinate());
+		int nbTreasure=caseMap.getNbTreasure();
+		caseMap.removeTreasure(new Coordinate(1,1));
+		assertEquals(nbTreasure-1, caseMap.getNbTreasure());
+	}
 
 }

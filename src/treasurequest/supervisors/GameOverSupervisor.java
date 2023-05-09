@@ -2,7 +2,6 @@ package treasurequest.supervisors;
 
 import java.util.Objects;
 
-import treasurequest.domains.TreasureQuestGameFactory;
 import treasurequest.domains.ITreasureQuestGameFactory;
 import treasurequest.supervisors.views.GameOverView;
 

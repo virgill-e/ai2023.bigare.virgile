@@ -28,9 +28,9 @@ package treasurequest.domains;
  * 
  *         O(t*(s*s+v))
  * 
- *         o(t*v)
+ *         o(t*(s*s))
  * 
- *         La complexite est donc une complexite quadratique
+ *         La complexite est donc une complexite cubique quadratique
  * 
  * 
  *         ----------------------------------------

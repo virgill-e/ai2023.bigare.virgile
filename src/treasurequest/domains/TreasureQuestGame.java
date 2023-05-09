@@ -4,7 +4,34 @@ package treasurequest.domains;
  * class d'une partie de Treasure Quest
  * 
  * @author virgi
- *
+ * 
+ *         CTT du calcul d’indices:
+ * 
+ *         t=nombre de tresor au chargement de la map
+ * 
+ *         s=(la distane pour être voisin*2)+1, 5 dans notre cas
+ * 
+ *         v=le nombre de voisin, 24 dans notre cas
+ * 
+ *         ----------------------------
+ * 
+ *         - CaseMap.setAllcClues() parcours toute les Coordonne contenant un
+ *         tresor
+ * 
+ *         - La methode appelle ensuite getNeighbors() sur les coordonnees
+ *         renvoyant une liste des 24 coordonne voisine en utilisant une boucle
+ *         recursive qui parcoure chacune (la distane pour être voisin*2)+1,
+ *         dans notre cas 5
+ * 
+ *         -Pour chaque tresore on parcours ses voisins pour leurs assigne le
+ *         meilleur indice possible
+ * 
+ *         O(t+s*s)*v)
+ *         
+ *         o(t*v)
+ *         
+ *         La complexite est donc une complexite quadratique
+ * 
  */
 public class TreasureQuestGame {
 	private final CaseMap caseMap;
@@ -149,9 +176,10 @@ public class TreasureQuestGame {
 	public CardinalPoints getCardinalPoints() {
 		return caseMap.getCaseWithCoord(activeCoordinate).getCardinalPoint();
 	}
-	
+
 	/**
 	 * renvoie si la case active possede un tresor
+	 * 
 	 * @return
 	 */
 	public boolean ActiveHasTreasure() {
@@ -171,7 +199,5 @@ public class TreasureQuestGame {
 			return false;
 		return player.getCoins() >= caseDig.getCost();
 	}
-
-
 
 }

@@ -159,8 +159,8 @@ public class CaseMap implements Iterable<Coordinate> {
 	 * set l'indice a chaque casse qui peut en avoir une
 	 */
 	private void setAllClues() {
-		for (Coordinate coordTrasure : treasures) {
-			List<Coordinate> neighbors = coordTrasure.getNeighbors();
+		for (Coordinate coordTreasure : treasures) {
+			List<Coordinate> neighbors = coordTreasure.getNeighbors();
 			for (Coordinate coordNeighbor : neighbors) {
 				Case caseNeighbor = cases.get(coordNeighbor);
 
@@ -168,10 +168,10 @@ public class CaseMap implements Iterable<Coordinate> {
 					continue;
 				}
 				if (caseNeighbor.getClue() == null) {
-					caseNeighbor.setClue(ClueGenerator.generateClue(coordNeighbor, coordTrasure));
+					caseNeighbor.setClue(ClueGenerator.generateClue(coordNeighbor, coordTreasure));
 				} else {
 					Coordinate coordOrigin = caseNeighbor.getClue().getOriginTreasure();
-					betterClue(coordNeighbor, coordOrigin, coordTrasure);
+					betterClue(coordNeighbor, coordOrigin, coordTreasure);
 
 				}
 

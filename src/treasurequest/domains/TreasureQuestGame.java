@@ -26,11 +26,23 @@ package treasurequest.domains;
  *         -Pour chaque tresore on parcours ses voisins pour leurs assigne le
  *         meilleur indice possible
  * 
- *         O(t+s*s)*v)
- *         
+ *         O(t*(s*s+v))
+ * 
  *         o(t*v)
- *         
+ * 
  *         La complexite est donc une complexite quadratique
+ * 
+ * 
+ *         ----------------------------------------
+ * 
+ *         Choix du type et de l’implémentation d’une collection:
+ * 
+ *         Pour stocker les coordonnees environate (voisine) j'ai utilise une
+ *         list car les seul operation que j'effectue son le add et je parcours
+ *         ma collection avec une boucle foreach
+ * 
+ *         mon implementation est une ArrayList car l'ajout est de O(1)
+ * 
  * 
  */
 public class TreasureQuestGame {

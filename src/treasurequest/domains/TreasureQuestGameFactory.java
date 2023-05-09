@@ -45,7 +45,7 @@ public class TreasureQuestGameFactory implements ITreasureQuestGameFactory {
 	 * Initialise une instance de TreasureQuestGame
 	 */
 	public void createGame() {
-		game = new TreasureQuestGame(new CaseMap(CharArrayFileReader.parseFile(sample), new FakeRandomCoordinate()));
+		game = new TreasureQuestGame(new CaseMap(CharArrayFileReader.parseFile(sample), new RandomCoordinate()));
 	}
 
 	/**

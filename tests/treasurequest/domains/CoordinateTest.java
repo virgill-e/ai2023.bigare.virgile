@@ -2,7 +2,6 @@ package treasurequest.domains;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -67,7 +66,6 @@ class CoordinateTest {
 	@Test
 	void getNeighbor() {
 		Coordinate coordSrc = new Coordinate(0, 0);
-		List<Coordinate> expectedNeighbor=new ArrayList<Coordinate>();
 		List<Coordinate> neighbors=coordSrc.getNeighbors();
 		assertEquals(24, neighbors.size());
 	}

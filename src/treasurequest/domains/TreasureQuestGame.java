@@ -30,7 +30,7 @@ package treasurequest.domains;
  * 
  *         o(t*(s*s))
  * 
- *         La complexite est donc une complexite cubique quadratique
+ *         La complexite est donc une complexite cubique 
  * 
  * 
  *         ----------------------------------------

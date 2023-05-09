@@ -26,11 +26,10 @@ import java.util.Random;
  */
 public class CaseMap implements Iterable<Coordinate> {
 	private static final double TEN_PERCENT = 0.1;
-	private static final double NEIGHBOR_SIZE = 5;
 	private static final Coordinate TOP_LEFT = new Coordinate(0, 0);
 
 	private final Map<Coordinate, Case> cases;
-	private List<Coordinate> treasures;
+	private final List<Coordinate> treasures;
 	private Coordinate center;
 	private final IRandomCoordinate random;
 
@@ -71,6 +70,10 @@ public class CaseMap implements Iterable<Coordinate> {
 		return this.cases.get(coord);
 	}
 
+	/**
+	 * renvoie le nombre de tresor restant dans le jeu
+	 * @return
+	 */
 	public int getNbTreasure() {
 		return this.treasures.size();
 	}
@@ -89,6 +92,10 @@ public class CaseMap implements Iterable<Coordinate> {
 		return cases.containsKey(coord);
 	}
 
+	/**
+	 * Supprime le tresor present sur les coordonnee fournie
+	 * @param activeCoordinate
+	 */
 	public void removeTreasure(Coordinate activeCoordinate) {
 		treasures.remove(activeCoordinate);
 	}
@@ -155,11 +162,6 @@ public class CaseMap implements Iterable<Coordinate> {
 		for (Coordinate coordTrasure : treasures) {
 			List<Coordinate> neighbors = coordTrasure.getNeighbors();
 			for (Coordinate coordNeighbor : neighbors) {
-				if(coordTrasure.getCol()==13&&coordTrasure.getRow()==0) {
-					if(coordNeighbor.getCol()==13&&coordNeighbor.getRow()==1) {
-						System.out.print(false);
-					}
-				}
 				Case caseNeighbor = cases.get(coordNeighbor);
 
 				if (caseNeighbor == null || caseNeighbor.hasTreasure()||!caseNeighbor.canBeDug()) {

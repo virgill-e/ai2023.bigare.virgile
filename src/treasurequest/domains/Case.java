@@ -112,6 +112,11 @@ public class Case {
 		return this.clue;
 	}
 
+	/**
+	 * renvoie le point cardinal de l'indice d'une case
+	 * null si la case n'a pas d'indice
+	 * @return
+	 */
 	public CardinalPoints getCardinalPoint() {
 		if(this.clue==null)return null;
 		return this.clue.getCardinalPoint();

@@ -149,6 +149,14 @@ public class TreasureQuestGame {
 	public CardinalPoints getCardinalPoints() {
 		return caseMap.getCaseWithCoord(activeCoordinate).getCardinalPoint();
 	}
+	
+	/**
+	 * renvoie si la case active possede un tresor
+	 * @return
+	 */
+	public boolean ActiveHasTreasure() {
+		return caseMap.getCaseWithCoord(activeCoordinate).hasTreasure();
+	}
 
 	/*
 	 * PRIVATE METHODS
@@ -164,10 +172,6 @@ public class TreasureQuestGame {
 		return player.getCoins() >= caseDig.getCost();
 	}
 
-	//AFAC
-	public Case getCaseWithCoord(Coordinate c) {//afac
-		return caseMap.getCaseWithCoord(c);
-		
-	}
+
 
 }

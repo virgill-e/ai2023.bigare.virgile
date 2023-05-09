@@ -3,7 +3,6 @@ package treasurequest.supervisors;
 import java.util.Objects;
 
 import treasurequest.domains.CardinalPoints;
-import treasurequest.domains.Case;
 import treasurequest.domains.Coordinate;
 import treasurequest.domains.TreasureQuestGame;
 import treasurequest.domains.ITreasureQuestGameFactory;
@@ -105,10 +104,23 @@ public class PlayGameSupervisor {
 	 * Tente de creuser la case active et met à jour l'affichage en conséquence.
 	 * 
 	 * Ne fais rien si la case active a déjà été creusee ou si elle est de type Eau.
+	 * 
+	 * 
+	 * Postconditions vérifiées par le montant ajouté à la bourse du joueur :
+	 * 
+	 * - La valeur d'un tresor doit être comprise entre 10 et 20
+	 * 
+	 * - Lors de l'ajout de cette valeur au joueur la methode empêche les nombres
+	 * negatifs
 	 */
 	public void onDig() {
+		boolean hasTreasure = game.ActiveHasTreasure();
 		if (game.dig()) {
-			view.setSpriteAt(SpriteType.DUG, game.getActiveRow(), game.getActiveCol());
+			if (hasTreasure) {
+				view.setSpriteAt(SpriteType.TREASURE, game.getActiveRow(), game.getActiveCol());
+			} else {
+				view.setSpriteAt(SpriteType.DUG, game.getActiveRow(), game.getActiveCol());
+			}
 			CardinalPoints cardinalPoint = game.getCardinalPoints();
 			if (cardinalPoint != null) {
 				view.setSpriteAt(SpriteType.valueOf(cardinalPoint.toString()), game.getActiveRow(),
@@ -144,10 +156,6 @@ public class PlayGameSupervisor {
 		for (Coordinate c : game.getCoords()) {
 			char actualChar = game.getCaseTypeWithCoord(c);
 			view.setTileAt(whatType(actualChar), c.getRow(), c.getCol());
-			Case caseafac = game.getCaseWithCoord(c);// AFAC
-			CardinalPoints cardinalPoint = caseafac.getCardinalPoint();// AFAC
-			if (cardinalPoint != null)
-				view.setSpriteAt(SpriteType.valueOf(caseafac.getCardinalPoint().toString()), c.getRow(), c.getCol());
 		}
 	}
 

@@ -58,6 +58,12 @@ public class Coordinate implements Comparable<Coordinate>{
 		return Objects.hash(col, row);
 	}
 
+	/**
+	 * renvoie la coordonne la plus proche entre les 2 donne en parametre
+	 * @param coord1
+	 * @param coord2
+	 * @return
+	 */
 	public Coordinate getClosest(Coordinate coord1, Coordinate coord2) {
 		double distance1 = this.calculateDistance(coord1);
 		double distance2 = this.calculateDistance(coord2);
@@ -70,6 +76,10 @@ public class Coordinate implements Comparable<Coordinate>{
 		return null;
 	}
 
+	/**
+	 * Renvoie une liste contenant les 24 voisins d'une case
+	 * @return
+	 */
 	public List<Coordinate> getNeighbors() {
 		List<Coordinate> neighbors = new ArrayList<Coordinate>();
 		int end = (int) (NEIGHBOR_SIZE / 2);
@@ -85,13 +95,11 @@ public class Coordinate implements Comparable<Coordinate>{
 	}
 	
 	@Override
-	public int compareTo(Coordinate o) {
-		if (this.row != o.row) {
-	        // Si les coordonnées n'ont pas la même ligne, on les compare en fonction de leur ligne
-	        return Integer.compare(this.row, o.row);
+	public int compareTo(Coordinate that) {
+		if (this.row != that.row) {
+	        return Integer.compare(this.row, that.row);
 	    } else {
-	        // Si les coordonnées ont la même ligne, on les compare en fonction de leur colonne
-	        return Integer.compare(this.col, o.col);
+	        return Integer.compare(this.col, that.col);
 	    }
 	}
 

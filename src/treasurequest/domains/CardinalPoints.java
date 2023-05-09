@@ -6,5 +6,5 @@ package treasurequest.domains;
  *
  */
 public enum CardinalPoints {
-	WEST, NORTH_WEST, NORTH, NORTH_EAST, EAST, SOUTH_EAST, SOUTH, SOUTH_WEST, TREASURE, DUG, NONE;
+	WEST, NORTH_WEST, NORTH, NORTH_EAST, EAST, SOUTH_EAST, SOUTH, SOUTH_WEST;
 }

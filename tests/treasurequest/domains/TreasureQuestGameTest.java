@@ -114,8 +114,14 @@ class TreasureQuestGameTest {
 		TreasureQuestGame tqg=new TreasureQuestGame(new CaseMap(MAP_TAB, new FakeRandomCoordinate()));
 		tqg.updateActiveCase(-1, -1);
 		assertEquals(CardinalPoints.WEST, tqg.getCardinalPoints());
-		
-		
+	}
+	
+	@Test
+	void hasTreasure() {
+		TreasureQuestGame tqg=new TreasureQuestGame(new CaseMap(MAP_TAB, new FakeRandomCoordinate()));
+		assertFalse(tqg.ActiveHasTreasure());
+		tqg.updateActiveCase(-1, -2);
+		assertTrue(tqg.ActiveHasTreasure());
 	}
 	
 	

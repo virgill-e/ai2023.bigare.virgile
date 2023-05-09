@@ -1,9 +1,7 @@
 package treasurequest.domains;
 
-
 /**
- * CaseType permet d'identifier les attributs d'une case en fonction de son
- * type
+ * CaseType permet d'identifier les attributs d'une case en fonction de son type
  * 
  * @author virgi
  *
@@ -25,10 +23,16 @@ public class CaseType {
 	public CaseType(char type) {
 		this.type = isGoodType(type);
 	}
-	
-	
+
+	/**
+	 * methode de fabrique, renvoie un CaseType en fonction du char recu en
+	 * parametre
+	 * 
+	 * @param type
+	 * @return
+	 */
 	public static CaseType typeOf(char type) {
-		if (type == 'S'||type == 'P'||type == 'F'||type == 'R')
+		if (type == 'S' || type == 'P' || type == 'F' || type == 'R')
 			return new CaseType(type);
 		else
 			return new CaseType('X');
@@ -44,6 +48,7 @@ public class CaseType {
 
 	/**
 	 * renvoie la cout de creusage d'une case en fonction de son type
+	 * 
 	 * @return
 	 */
 	public int getCost() {
@@ -53,27 +58,24 @@ public class CaseType {
 			return SAND_COST * 3;
 		else if (type == 'R')
 			return SAND_COST * 5;
-		else if(type=='S')
+		else if (type == 'S')
 			return SAND_COST;
 		return 0;
 	}
 
 	/**
 	 * renvoie un boolean si une case peut être creuser ou non
+	 * 
 	 * @return
 	 */
 	public boolean canBeDug() {
 		return this.type != 'X';
 	}
-	
-	
-	
-	
-	
+
 	/*
 	 * PRIVATE METHODS
 	 */
-	
+
 	private char isGoodType(char type) {
 		if (type == 'P')
 			return type;
@@ -81,7 +83,7 @@ public class CaseType {
 			return type;
 		else if (type == 'R')
 			return type;
-		else if(type=='S')
+		else if (type == 'S')
 			return type;
 		return 'X';
 	}

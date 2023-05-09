@@ -34,6 +34,10 @@ public class Player {
 		this.coins=Math.max(0, this.coins);
 	}
 	
+	/**
+	 * ajoute des piece au joueur
+	 * @param value
+	 */
 	public void addCoins(int value) {
 		this.coins+=Math.abs(value);
 		this.coins=Math.max(0, this.coins);

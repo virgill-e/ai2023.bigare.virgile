@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import treasurequest.io.CharArrayFileReader;
+
 class TreasureQuestGameFactoryTest {
 
 	private static final String SAMPLE="resources/maps/map-sample-2.txt";
@@ -27,6 +29,8 @@ class TreasureQuestGameFactoryTest {
 		TreasureQuestGameFactory tqgf=new TreasureQuestGameFactory(SAMPLE);
 		assertTrue(tqgf.getGame() instanceof TreasureQuestGame);
 	}
+	
+	
 	
 	
 

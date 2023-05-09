@@ -199,7 +199,9 @@ public class CaseMap implements Iterable<Coordinate> {
 		betterCoord = betterClueClosest(TOP_LEFT, coordOrigin, coordNeighbor);
 		if (betterCoord != null) {
 			setClueOnCase(coordNeighbor, betterCoord);
+			return;
 		}
+		setClueOnCase(coordNeighbor, coordOrigin);
 	}
 
 	private void setClueOnCase(Coordinate myCase, Coordinate objective) {

@@ -2,6 +2,9 @@ package treasurequest.domains;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 class CoordinateTest {
@@ -40,6 +43,44 @@ class CoordinateTest {
 		Coordinate coord3 = new Coordinate(1, 3);
 		assertEquals(coord.hashCode(), coord2.hashCode());
 		assertNotEquals(coord.hashCode(), coord3.hashCode());
+	}
+	
+	@Test
+	void getClossest() {
+		Coordinate coordSrc = new Coordinate(1, 2);
+		Coordinate coord2 = new Coordinate(1, 3);
+		Coordinate coord3 = new Coordinate(1, 5);
+		
+		assertEquals(coord2, coordSrc.getClosest(coord2, coord3));
+		assertEquals(coord2, coordSrc.getClosest(coord3, coord2));
+	}
+	
+	@Test
+	void getClossestSameDist() {
+		Coordinate coordSrc = new Coordinate(1, 2);
+		Coordinate coord2 = new Coordinate(1, 3);
+		Coordinate coord3 = new Coordinate(1, 1);
+		
+		assertNull(coordSrc.getClosest(coord2, coord3));
+	}
+	
+	@Test
+	void getNeighbor() {
+		Coordinate coordSrc = new Coordinate(0, 0);
+		List<Coordinate> expectedNeighbor=new ArrayList<Coordinate>();
+		List<Coordinate> neighbors=coordSrc.getNeighbors();
+		assertEquals(24, neighbors.size());
+	}
+	
+	@Test
+	void compareTo() {
+		Coordinate coordSrc = new Coordinate(1, 2);
+		Coordinate coord2 = new Coordinate(1, 3);
+		Coordinate coord3 = new Coordinate(1, 2);
+		
+		assertTrue(coordSrc.compareTo(coord3)==0);
+		assertTrue(coordSrc.compareTo(coord2)<0);
+		assertTrue(coord2.compareTo(coordSrc)>0);
 	}
 
 }

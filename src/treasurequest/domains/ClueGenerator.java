@@ -17,14 +17,10 @@ public class ClueGenerator {
 			value.add("NORTH");
 		}
 		
-
 		if (neighbor.getCol() > origin.getCol()) {
 			value.add("WEST");
 		} else if (neighbor.getCol() < origin.getCol()) {
 			value.add("EAST");
-		}
-		if(value.toString().length()==0) {
-			System.out.println("aaaaaaa");
 		}
 		return CardinalPoints.valueOf(value.toString());
 	}

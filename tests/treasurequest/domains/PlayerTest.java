@@ -24,5 +24,12 @@ class PlayerTest {
 		pl.substractCoins(30);
 		assertEquals(0, pl.getCoins());
 	}
+	
+	@Test
+	void addCoins() {
+		Player player=new Player(0);
+		player.addCoins(4970);
+		assertEquals(4970, player.getCoins());
+	}
 
 }

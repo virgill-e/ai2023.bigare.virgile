@@ -141,7 +141,7 @@ public class PlayGameSupervisor {
 	}
 
 	private void drawMap() {
-		for (Coordinate c : game.getCoord()) {
+		for (Coordinate c : game.getCoords()) {
 			char actualChar = game.getCaseTypeWithCoord(c);
 			view.setTileAt(whatType(actualChar), c.getRow(), c.getCol());
 			Case caseafac = game.getCaseWithCoord(c);// AFAC

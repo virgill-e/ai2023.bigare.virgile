@@ -36,7 +36,7 @@ public class TreasureQuestGame {
 	 * 
 	 * @return
 	 */
-	public Iterable<Coordinate> getCoord() {
+	public Iterable<Coordinate> getCoords() {
 		return this.caseMap;
 	}
 
@@ -164,6 +164,7 @@ public class TreasureQuestGame {
 		return player.getCoins() >= caseDig.getCost();
 	}
 
+	//AFAC
 	public Case getCaseWithCoord(Coordinate c) {//afac
 		return caseMap.getCaseWithCoord(c);
 		

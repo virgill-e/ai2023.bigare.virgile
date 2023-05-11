@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import treasurequest.domains.ITreasureQuestGameFactory;
 import treasurequest.supervisors.views.GameOverView;
+import treasurequest.supervisors.views.ViewNames;
 
 /**
  * Réagit aux événements de haut-niveau de sa vue et lui fournit des données à afficher.
@@ -55,6 +56,7 @@ public class GameOverSupervisor {
 	 * */
 	public void onGoToMain() {
 		//TODO : retourner au menu principal
+		view.goTo(ViewNames.MAIN_MENU);
 	}
 	
 	/*

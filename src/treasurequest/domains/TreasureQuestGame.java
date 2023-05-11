@@ -30,7 +30,7 @@ package treasurequest.domains;
  * 
  *         o(t*(s*s))
  * 
- *         La complexite est donc une complexite cubique 
+ *         La complexite est donc une complexite cubique
  * 
  * 
  *         ----------------------------------------
@@ -210,6 +210,12 @@ public class TreasureQuestGame {
 		if (!caseDig.canBeDug())
 			return false;
 		return player.getCoins() >= caseDig.getCost();
+	}
+
+	public boolean hasEnoughCoins() {
+		// TODO: map avec comme clé le type de case et value leurs nombre pour une
+		// recherche efficace sans parcourir toute les cases !
+		return false;
 	}
 
 }

@@ -4,7 +4,7 @@ package treasurequest.supervisors.views;
  * Enumère les types de résultat disponibles.
  * */
 public enum ResultType {
-	GAIN("Gains"), LOSS("Pertes"), BALANCE("Bilan"), LUMBERJACK("Bucheron"), MINER("Mineur"), FARMER("Fermier"), TOURIST("Touriste"), NONE("Inconnu");
+	GAIN("Gains"), LOSS("Pertes"), DURATION("Bilan"), LUMBERJACK("Bucheron"), MINER("Mineur"), FARMER("Fermier"), TOURIST("Touriste"), NONE("Inconnu");
 
 	private String title;
 

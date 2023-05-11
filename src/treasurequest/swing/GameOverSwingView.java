@@ -76,7 +76,8 @@ public class GameOverSwingView extends SwingView implements GameOverView {
 		int row = panels.size()/PANEL_BY_ROW;
 		int col = panels.size() - (row*PANEL_BY_ROW);
 		
-		panels.add(new GameResultPanel(ResultType.NONE, message, getWidth()/100*3 + col*(256+5), getHeight()/3 + row*(200+5)));
+		panels.add(new GameResultPanel(type, message, getWidth()/100*3 + col*(256+5), getHeight()/3 +
+				row*(200+5)));
 	}
 
 	

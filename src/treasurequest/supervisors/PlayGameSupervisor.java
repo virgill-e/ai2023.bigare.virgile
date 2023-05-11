@@ -93,7 +93,6 @@ public class PlayGameSupervisor {
 	 * à une case du terrain.
 	 */
 	public void onMove(int deltaRow, int deltaCol) {
-		// TODO : valider et changer de case active. Appelez les méthodes adéquates de
 		// la vue.
 		game.updateActiveCase(deltaRow, deltaCol);
 		view.setActiveCase(game.getActiveRow(), game.getActiveCol());
@@ -116,19 +115,14 @@ public class PlayGameSupervisor {
 	public void onDig() {
 		boolean hasTreasure = game.ActiveHasTreasure();
 		if (game.dig()) {
-			if (hasTreasure) {
-				view.setSpriteAt(SpriteType.TREASURE, game.getActiveRow(), game.getActiveCol());
-			} else {
-				view.setSpriteAt(SpriteType.DUG, game.getActiveRow(), game.getActiveCol());
-			}
-			CardinalPoints cardinalPoint = game.getCardinalPoints();
-			if (cardinalPoint != null) {
-				view.setSpriteAt(SpriteType.valueOf(cardinalPoint.toString()), game.getActiveRow(),
-						game.getActiveCol());
-			}
+			setSpriteWhenDig(hasTreasure);
 		}
 		panelDisplay();
+		if(game.getNbTreasur()==0||!game.hasEnoughCoins()) {
+			goToGameOver();
+		}
 	}
+
 
 	/**
 	 * Méthode appelée par la vue quand l'utilisateur souhaite interrompre la
@@ -137,7 +131,6 @@ public class PlayGameSupervisor {
 	 * Ce superviseur demande à sa vue de naviguer vers le menu principal.
 	 */
 	public void onStop() {
-		// TODO : naviguer vers le menu principal
 		view.goTo(ViewNames.MAIN_MENU);
 	}
 
@@ -157,6 +150,26 @@ public class PlayGameSupervisor {
 			char actualChar = game.getCaseTypeWithCoord(c);
 			view.setTileAt(whatType(actualChar), c.getRow(), c.getCol());
 		}
+	}
+
+	private void goToGameOver() {
+		view.goTo(ViewNames.GAME_OVER);
+	}
+	
+	/**
+	 * @param hasTreasure
+	 */
+	private void setSpriteWhenDig(boolean hasTreasure) {
+		if (hasTreasure) {
+			view.setSpriteAt(SpriteType.TREASURE, game.getActiveRow(), game.getActiveCol());
+			return;
+		}
+		CardinalPoints cardinalPoint = game.getCardinalPoints();
+		if (cardinalPoint != null) {
+			view.setSpriteAt(SpriteType.valueOf(cardinalPoint.toString()), game.getActiveRow(), game.getActiveCol());
+			return;
+		}
+		view.setSpriteAt(SpriteType.DUG, game.getActiveRow(), game.getActiveCol());
 	}
 
 	private TileType whatType(char type) {

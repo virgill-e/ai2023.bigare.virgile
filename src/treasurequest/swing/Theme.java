@@ -74,8 +74,16 @@ public final class Theme {
 	 * Définit les images associées aux différents résultats.
 	 * */
 	public static final Map<ResultType, Image> RESULTS_SPRITES = Map.of(
-			ResultType.NONE, new ImageIcon("resources/images/results/none.png").getImage()
+			ResultType.NONE, new ImageIcon("resources/images/results/none.png").getImage(),
 			//TODO : ajouter de nouvelles images en fonction des types de résultat
+			ResultType.LOSS, new ImageIcon("resources/images/results/loss.png").getImage(),
+			ResultType.GAIN, new ImageIcon("resources/images/results/gain.png").getImage(),
+			ResultType.DURATION, new ImageIcon("resources/images/results/duration.png").getImage(),
+			ResultType.TOURIST, new ImageIcon("resources/images/results/tourist.png").getImage(),
+			ResultType.FARMER, new ImageIcon("resources/images/results/farmer.png").getImage(),
+			ResultType.LUMBERJACK, new ImageIcon("resources/images/results/lumberjack.png").getImage(),
+			ResultType.MINER, new ImageIcon("resources/images/results/miner.png").getImage()
+
 	);
 	
 	/**

@@ -1,5 +1,7 @@
 package treasurequest.domains;
 
+import java.util.Objects;
+
 /**
  * CaseType permet d'identifier les attributs d'une case en fonction de son type
  * 
@@ -45,6 +47,25 @@ public class CaseType {
 	public char getType() {
 		return this.type;
 	}
+	
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(type);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CaseType other = (CaseType) obj;
+		return type == other.type;
+	}
 
 	/**
 	 * renvoie la cout de creusage d'une case en fonction de son type
@@ -60,7 +81,7 @@ public class CaseType {
 			return SAND_COST * 5;
 		else if (type == 'S')
 			return SAND_COST;
-		return 0;
+		return Integer.MAX_VALUE;
 	}
 
 	/**

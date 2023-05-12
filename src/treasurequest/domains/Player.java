@@ -1,5 +1,10 @@
 package treasurequest.domains;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.util.StringJoiner;
+
 /**
  * La class player represente un joueur possédant des pieces
  * @author virgi
@@ -7,6 +12,10 @@ package treasurequest.domains;
  */
 public class Player {
 	private int coins;
+	private int spend;
+	private int gain;
+	private final LocalDateTime time;
+	private Profil profil;
 	
 	/*
 	 * CONSTRUCTORS
@@ -17,6 +26,9 @@ public class Player {
 	 */
 	public Player(int coins) {
 		this.coins=coins;
+		this.spend=0;
+		this.gain=0;
+		this.time=LocalDateTime.now();
 	}
 	
 	/*
@@ -31,7 +43,7 @@ public class Player {
 	 */
 	public void substractCoins(int value) {
 		this.coins-=Math.abs(value);
-		this.coins=Math.max(0, this.coins);
+		this.spend+=Math.abs(value);
 	}
 	
 	/**
@@ -40,11 +52,35 @@ public class Player {
 	 */
 	public void addCoins(int value) {
 		this.coins+=Math.abs(value);
-		this.coins=Math.max(0, this.coins);
+		this.gain+=Math.abs(value);
 	}
 	
 	public int getCoins() {
 		return this.coins;
+	}
+
+	public int getSpend() {
+		return this.spend;
+	}
+	
+	public int getGain() {
+		return this.gain;
+	}
+
+	public void setCoins(int value) {
+		this.coins=Math.abs(value);
+	}
+	
+	public String getMinSeconde() {
+		StringJoiner stringJoiner=new StringJoiner(":");
+		Duration duration=Duration.between(time, LocalDateTime.now());
+		stringJoiner.add(String.valueOf(duration.getSeconds()/60));
+		stringJoiner.add(String.valueOf(duration.getSeconds()%60));
+		return stringJoiner.toString();
+	}
+	
+	public void setProfil(Profil profil) {
+		this.profil=profil;
 	}
 	
 	/*

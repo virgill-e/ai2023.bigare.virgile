@@ -26,6 +26,7 @@ public class TreasureQuestGameFactory implements ITreasureQuestGameFactory {
 
 	private TreasureQuestGame game;
 	private final String sample;
+	private final Player player;
 
 	/*
 	 * CONSTRUCTORS
@@ -39,13 +40,15 @@ public class TreasureQuestGameFactory implements ITreasureQuestGameFactory {
 	 */
 	public TreasureQuestGameFactory(String sample) {
 		this.sample = sample;
+		this.player=new Player(0);
 	}
 
 	/**
 	 * Initialise une instance de TreasureQuestGame
 	 */
 	public void createGame() {
-		game = new TreasureQuestGame(new CaseMap(CharArrayFileReader.parseFile(sample), new RandomCoordinate()));
+		CaseMap caseMap=new CaseMap(CharArrayFileReader.parseFile(sample), new RandomCoordinate());
+		game = new TreasureQuestGame(caseMap,player);
 	}
 
 	/**

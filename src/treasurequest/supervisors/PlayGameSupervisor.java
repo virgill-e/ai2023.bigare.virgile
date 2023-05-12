@@ -118,10 +118,11 @@ public class PlayGameSupervisor {
 			setSpriteWhenDig(hasTreasure);
 		}
 		panelDisplay();
-		if(game.getNbTreasur()==0||!game.hasEnoughCoins()) {
+		if(game.isLoose()) {
 			goToGameOver();
 		}
 	}
+	
 
 
 	/**
@@ -144,6 +145,7 @@ public class PlayGameSupervisor {
 		view.setActiveCaseCost(String.format(ACTIVE_COST, game.getActiveCaseCost()));
 		view.setActiveCaseType(String.format(ACTIVE_TYPE, game.getActiveCaseType()));
 	}
+	
 
 	private void drawMap() {
 		for (Coordinate c : game.getCoords()) {

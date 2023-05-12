@@ -11,7 +11,7 @@
 # | R       | Rochers      |
 # | X       | Eau          |
 XXXXXX
-XPPPPX
+XSSSSX
 XPRRPX
 XPPPPX
 XXXXXX

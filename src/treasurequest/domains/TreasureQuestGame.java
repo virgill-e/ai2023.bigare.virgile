@@ -60,9 +60,10 @@ public class TreasureQuestGame {
 	 * 
 	 * @param sample
 	 */
-	public TreasureQuestGame(CaseMap map) {
+	public TreasureQuestGame(CaseMap map,Player player) {
 		this.caseMap = map;
-		this.player = new Player(caseMap.getNbTreasure() * 2);
+		this.player = player;
+		this.player.setCoins(caseMap.getNbTreasure() * 2);
 		this.activeCoordinate = caseMap.getCenter();
 	}
 
@@ -105,6 +106,14 @@ public class TreasureQuestGame {
 	public int getPlayerCoins() {
 		return this.player.getCoins();
 	}
+	
+	public int getPlayerSpend() {
+		return this.player.getSpend();
+	}
+	
+	public int getPlayerGain() {
+		return this.player.getGain();
+	}
 
 	/**
 	 * renvoie le nombre de trésor restant dans la map
@@ -114,6 +123,8 @@ public class TreasureQuestGame {
 	public int getNbTreasur() {
 		return this.caseMap.getNbTreasure();
 	}
+	
+	
 
 	/**
 	 * renvoie le type de la case active
@@ -174,6 +185,7 @@ public class TreasureQuestGame {
 				caseDig.removeTreasure();
 			}
 			caseDig.setDug();
+			caseMap.addDig(activeCoordinate);
 			return true;
 		}
 		return false;
@@ -197,6 +209,10 @@ public class TreasureQuestGame {
 	public boolean ActiveHasTreasure() {
 		return caseMap.getCaseWithCoord(activeCoordinate).hasTreasure();
 	}
+	
+	public boolean isLoose() {
+		return getNbTreasur()==0||!hasEnoughCoins();
+	}
 
 	/*
 	 * PRIVATE METHODS
@@ -211,11 +227,23 @@ public class TreasureQuestGame {
 			return false;
 		return player.getCoins() >= caseDig.getCost();
 	}
-
-	public boolean hasEnoughCoins() {
-		// TODO: map avec comme clé le type de case et value leurs nombre pour une
-		// recherche efficace sans parcourir toute les cases !
-		return false;
+	
+	private boolean hasEnoughCoins() {
+		boolean hasEnoughCoins=false;
+		for(Coordinate coord:caseMap) {
+			Case myCase=caseMap.getCaseWithCoord(coord);
+			if(myCase.getCost()<=player.getCoins()) {
+				hasEnoughCoins=true;
+			}
+		}
+		return hasEnoughCoins;
 	}
+
+	public String getDuration() {
+		return player.getMinSeconde();
+	}
+
+
+	
 
 }

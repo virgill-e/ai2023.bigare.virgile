@@ -9,7 +9,6 @@ import java.util.Objects;
  * @author virgi cree des coordonnees row et col
  */
 public class Coordinate implements Comparable<Coordinate>{
-	private static final double NEIGHBOR_SIZE = 5;
 
 	private final int col;
 	private final int row;
@@ -80,9 +79,9 @@ public class Coordinate implements Comparable<Coordinate>{
 	 * Renvoie une liste contenant les 24 voisins d'une case
 	 * @return
 	 */
-	public List<Coordinate> getNeighbors() {
+	public List<Coordinate> getNeighbors(int perimetre) {
 		List<Coordinate> neighbors = new ArrayList<Coordinate>();
-		int end = (int) (NEIGHBOR_SIZE / 2);
+		int end = perimetre / 2;
 		int start = end * -1;
 		for (int row = start; row <= end; row++) {
 			for (int col = start; col <= end; col++) {

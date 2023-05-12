@@ -3,11 +3,14 @@ package treasurequest.domains;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * CaseMap gere une carte de jeu 2d en liant les coordonnées et les case de jeux
@@ -32,6 +35,7 @@ public class CaseMap implements Iterable<Coordinate> {
 	private final List<Coordinate> treasures;
 	private Coordinate center;
 	private final IRandomCoordinate random;
+	private final Set<Coordinate> digCoord;
 
 	/*
 	 * CONSTRUCTORS
@@ -49,6 +53,7 @@ public class CaseMap implements Iterable<Coordinate> {
 		this.random=random;
 		treasures = new ArrayList<Coordinate>();
 		cases = new HashMap<Coordinate, Case>();
+		digCoord=new LinkedHashSet<Coordinate>();
 		addAllCaseToMap(mapSample);
 		setAllTreasures();
 		setAllClues();
@@ -81,6 +86,8 @@ public class CaseMap implements Iterable<Coordinate> {
 	public Coordinate getCenter() {
 		return center;
 	}
+	
+	
 
 	/**
 	 * Verifie si la coordinate envoyé en parametre existe dans le Map de jeu
@@ -98,6 +105,14 @@ public class CaseMap implements Iterable<Coordinate> {
 	 */
 	public void removeTreasure(Coordinate activeCoordinate) {
 		treasures.remove(activeCoordinate);
+	}
+	
+	/**
+	 * ajoute la coord founie a une collection de case creuse
+	 * @param coord
+	 */
+	public void addDig(Coordinate coord) {
+		this.digCoord.add(coord);
 	}
 
 	@Override
@@ -147,20 +162,23 @@ public class CaseMap implements Iterable<Coordinate> {
 		for (int i = 0; i < mapSample.length; i++) {
 			row = Math.min(row, mapSample[i].length / 2);
 			for (int j = 0; j < mapSample[i].length; j++) {
-				Case actualCase = new Case(mapSample[i][j]);
+				char type=mapSample[i][j];
+				Case actualCase = new Case(type);
 				Coordinate coord = new Coordinate(j, i);
 				cases.put(coord, actualCase);
 			}
 		}
 		center = new Coordinate(row, col);
 	}
+	
+	
 
 	/**
 	 * set l'indice a chaque casse qui peut en avoir une
 	 */
 	private void setAllClues() {
 		for (Coordinate coordTreasure : treasures) {
-			List<Coordinate> neighbors = coordTreasure.getNeighbors();
+			List<Coordinate> neighbors = coordTreasure.getNeighbors(5);
 			for (Coordinate coordNeighbor : neighbors) {
 				Case caseNeighbor = cases.get(coordNeighbor);
 
@@ -240,6 +258,26 @@ public class CaseMap implements Iterable<Coordinate> {
 	 */
 	private Coordinate betterClueClosest(Coordinate coordNeighbor, Coordinate coordOrigin, Coordinate coordTreasure) {
 		return coordNeighbor.getClosest(coordOrigin, coordTreasure);
+	}
+	
+	private Profil findProfil() {
+		Set<Coordinate> visited=new HashSet<Coordinate>();
+		Set<Coordinate> zone=new HashSet<Coordinate>();
+		for(Coordinate coord:digCoord) {
+			Set<Coordinate> actualZone=new HashSet<Coordinate>();
+			addToZone(coord, actualZone, visited);
+		}
+		return null;
+	}
+	
+	private void addToZone(Coordinate coord,Set<Coordinate> zone,Set<Coordinate> visited) {
+		char type=getCaseWithCoord(coord).getType();
+		zone.add(coord);
+		List<Coordinate> neighbor=coord.getNeighbors(3);
+		//pour chaque voisin
+		//si du meme type et creuse on ajoute
+		//et ajoute a visited
+		//on parcours les voisins de cette ajoutrecursivement
 	}
 
 

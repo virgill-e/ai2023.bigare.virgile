@@ -3,7 +3,9 @@ package treasurequest.supervisors;
 import java.util.Objects;
 
 import treasurequest.domains.ITreasureQuestGameFactory;
+import treasurequest.domains.TreasureQuestGame;
 import treasurequest.supervisors.views.GameOverView;
+import treasurequest.supervisors.views.ResultType;
 import treasurequest.supervisors.views.ViewNames;
 
 /**
@@ -13,6 +15,7 @@ import treasurequest.supervisors.views.ViewNames;
 public class GameOverSupervisor {
 	private GameOverView view;
 	private ITreasureQuestGameFactory factory;
+	private TreasureQuestGame game;
 	
 	/*
 	 * CONSTRUCTORS
@@ -49,17 +52,26 @@ public class GameOverSupervisor {
 	 * */
 	public void onEnter(String fromView) {
 		//TODO : générer les résultats et les afficher.
+		if (ViewNames.PLAY_GAME.equals(fromView)) {
+			this.game=factory.getGame();
+			drawPannel();
+		}
 	}
 
 	/**
 	 * Méthode appelée par la vue quand l'utilisateur souhaite retourner au menu principal.
 	 * */
 	public void onGoToMain() {
-		//TODO : retourner au menu principal
 		view.goTo(ViewNames.MAIN_MENU);
 	}
 	
 	/*
 	 * PRIVATE METHODS
 	 */
+	
+	private void drawPannel() {
+		view.addPanel(ResultType.LOSS, String.valueOf(game.getPlayerSpend()));
+		view.addPanel(ResultType.GAIN, String.valueOf(game.getPlayerGain()));
+		view.addPanel(ResultType.DURATION, game.getDuration());
+	}
 }

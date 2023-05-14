@@ -213,6 +213,15 @@ public class TreasureQuestGame {
 	public boolean isLoose() {
 		return getNbTreasur()==0||!hasEnoughCoins();
 	}
+	
+	public void setProfil() {
+		Profil profil=caseMap.findProfil();
+		player.setProfil(profil);
+	}
+	
+	public Profil getProfil() {
+		return player.getProfil();
+	}
 
 	/*
 	 * PRIVATE METHODS

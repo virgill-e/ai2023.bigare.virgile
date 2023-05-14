@@ -47,13 +47,13 @@ public class CaseMap implements Iterable<Coordinate> {
 	 * 
 	 * @param mapSample
 	 */
-	public CaseMap(char[][] mapSample,IRandomCoordinate random) {
+	public CaseMap(char[][] mapSample, IRandomCoordinate random) {
 		Objects.requireNonNull(mapSample);
 		Objects.requireNonNull(random);
-		this.random=random;
+		this.random = random;
 		treasures = new ArrayList<Coordinate>();
 		cases = new HashMap<Coordinate, Case>();
-		digCoord=new LinkedHashSet<Coordinate>();
+		digCoord = new LinkedHashSet<Coordinate>();
 		addAllCaseToMap(mapSample);
 		setAllTreasures();
 		setAllClues();
@@ -77,6 +77,7 @@ public class CaseMap implements Iterable<Coordinate> {
 
 	/**
 	 * renvoie le nombre de tresor restant dans le jeu
+	 * 
 	 * @return
 	 */
 	public int getNbTreasure() {
@@ -86,8 +87,6 @@ public class CaseMap implements Iterable<Coordinate> {
 	public Coordinate getCenter() {
 		return center;
 	}
-	
-	
 
 	/**
 	 * Verifie si la coordinate envoyé en parametre existe dans le Map de jeu
@@ -101,14 +100,16 @@ public class CaseMap implements Iterable<Coordinate> {
 
 	/**
 	 * Supprime le tresor present sur les coordonnee fournie
+	 * 
 	 * @param activeCoordinate
 	 */
 	public void removeTreasure(Coordinate activeCoordinate) {
 		treasures.remove(activeCoordinate);
 	}
-	
+
 	/**
 	 * ajoute la coord founie a une collection de case creuse
+	 * 
 	 * @param coord
 	 */
 	public void addDig(Coordinate coord) {
@@ -162,7 +163,7 @@ public class CaseMap implements Iterable<Coordinate> {
 		for (int i = 0; i < mapSample.length; i++) {
 			row = Math.min(row, mapSample[i].length / 2);
 			for (int j = 0; j < mapSample[i].length; j++) {
-				char type=mapSample[i][j];
+				char type = mapSample[i][j];
 				Case actualCase = new Case(type);
 				Coordinate coord = new Coordinate(j, i);
 				cases.put(coord, actualCase);
@@ -170,8 +171,6 @@ public class CaseMap implements Iterable<Coordinate> {
 		}
 		center = new Coordinate(row, col);
 	}
-	
-	
 
 	/**
 	 * set l'indice a chaque casse qui peut en avoir une
@@ -182,7 +181,7 @@ public class CaseMap implements Iterable<Coordinate> {
 			for (Coordinate coordNeighbor : neighbors) {
 				Case caseNeighbor = cases.get(coordNeighbor);
 
-				if (caseNeighbor == null || caseNeighbor.hasTreasure()||!caseNeighbor.canBeDug()) {
+				if (caseNeighbor == null || caseNeighbor.hasTreasure() || !caseNeighbor.canBeDug()) {
 					continue;
 				}
 				if (caseNeighbor.getClue() == null) {
@@ -256,29 +255,54 @@ public class CaseMap implements Iterable<Coordinate> {
 	 * @param objective
 	 * @return
 	 */
+	// TODO: supprimer cette methode et garder seulement celle de Coordinate pour
+	// eviter class GOD
 	private Coordinate betterClueClosest(Coordinate coordNeighbor, Coordinate coordOrigin, Coordinate coordTreasure) {
 		return coordNeighbor.getClosest(coordOrigin, coordTreasure);
 	}
-	
-	private Profil findProfil() {
-		Set<Coordinate> visited=new HashSet<Coordinate>();
-		Set<Coordinate> zone=new HashSet<Coordinate>();
-		for(Coordinate coord:digCoord) {
-			Set<Coordinate> actualZone=new HashSet<Coordinate>();
+
+	public Profil findProfil() {
+		Set<Coordinate> visited = new HashSet<Coordinate>();
+		Set<Coordinate> zone = new HashSet<Coordinate>();
+		Profil profil = Profil.NONE;
+		for (Coordinate coord : digCoord) {
+			Set<Coordinate> actualZone = new HashSet<Coordinate>();
 			addToZone(coord, actualZone, visited);
+			if (actualZone.size() > zone.size()) {
+				profil = getProfil(coord);
+				zone = actualZone;
+			}
 		}
-		return null;
-	}
-	
-	private void addToZone(Coordinate coord,Set<Coordinate> zone,Set<Coordinate> visited) {
-		char type=getCaseWithCoord(coord).getType();
-		zone.add(coord);
-		List<Coordinate> neighbor=coord.getNeighbors(3);
-		//pour chaque voisin
-		//si du meme type et creuse on ajoute
-		//et ajoute a visited
-		//on parcours les voisins de cette ajoutrecursivement
+		return profil;
 	}
 
+	private void addToZone(Coordinate coord, Set<Coordinate> zone, Set<Coordinate> visited) {
+		char type = getCaseWithCoord(coord).getType();
+		zone.add(coord);
+		List<Coordinate> neighbors = coord.getNeighbors(3);
+		// pour chaque voisin
+		for (Coordinate coordNeigh : neighbors) {
+			// si du meme type
+			Case caseNeigh = getCaseWithCoord(coordNeigh);
+			if (caseNeigh.getType() == type && !visited.contains(coordNeigh)) {
+				// on ajoute a visited
+				visited.add(coordNeigh);
+				addToZone(coordNeigh, zone, visited);
+			}
+		}
+	}
+
+	private Profil getProfil(Coordinate coord) {
+		char type = getCaseWithCoord(coord).getType();
+		if (type == 'P')
+			return Profil.FARMER;
+		else if (type == 'F')
+			return Profil.GLUMBERJACK;
+		else if (type == 'R')
+			return Profil.MINER;
+		else if (type == 'S')
+			return Profil.TOURIST;
+		return Profil.NONE;
+	}
 
 }

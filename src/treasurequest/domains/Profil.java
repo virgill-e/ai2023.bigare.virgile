@@ -6,6 +6,6 @@ package treasurequest.domains;
  *
  */
 public enum Profil {
-	GLUMBERJACK, MINER, FARMER,TOURIST;
+	GLUMBERJACK, MINER, FARMER,TOURIST,NONE;
 
 }

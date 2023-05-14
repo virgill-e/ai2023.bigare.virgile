@@ -29,6 +29,7 @@ public class Player {
 		this.spend=0;
 		this.gain=0;
 		this.time=LocalDateTime.now();
+		this.profil=Profil.NONE;
 	}
 	
 	/*
@@ -81,6 +82,11 @@ public class Player {
 	
 	public void setProfil(Profil profil) {
 		this.profil=profil;
+	}
+
+	public Profil getProfil() {
+		return profil;
+		
 	}
 	
 	/*

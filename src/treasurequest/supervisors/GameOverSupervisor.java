@@ -55,6 +55,7 @@ public class GameOverSupervisor {
 		if (ViewNames.PLAY_GAME.equals(fromView)) {
 			this.game=factory.getGame();
 			drawPannel();
+			game.setProfil();
 		}
 	}
 
@@ -69,9 +70,11 @@ public class GameOverSupervisor {
 	 * PRIVATE METHODS
 	 */
 	
+	
 	private void drawPannel() {
 		view.addPanel(ResultType.LOSS, String.valueOf(game.getPlayerSpend()));
 		view.addPanel(ResultType.GAIN, String.valueOf(game.getPlayerGain()));
 		view.addPanel(ResultType.DURATION, game.getDuration());
+		view.addPanel(ResultType.valueOf(game.getProfil().toString()), game.getProfil().toString());
 	}
 }

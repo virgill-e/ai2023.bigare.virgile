@@ -279,14 +279,15 @@ public class CaseMap implements Iterable<Coordinate> {
 	private void addToZone(Coordinate coord, Set<Coordinate> zone, Set<Coordinate> visited) {
 		char type = getCaseWithCoord(coord).getType();
 		zone.add(coord);
+		visited.add(coord);
 		List<Coordinate> neighbors = coord.getNeighbors(3);
 		// pour chaque voisin
 		for (Coordinate coordNeigh : neighbors) {
 			// si du meme type
 			Case caseNeigh = getCaseWithCoord(coordNeigh);
-			if (caseNeigh.getType() == type && !visited.contains(coordNeigh)) {
+			if(caseNeigh==null)continue;
+			if (caseNeigh.getType() == type && !visited.contains(coordNeigh)&&digCoord.contains(coordNeigh)) {
 				// on ajoute a visited
-				visited.add(coordNeigh);
 				addToZone(coordNeigh, zone, visited);
 			}
 		}
@@ -297,7 +298,7 @@ public class CaseMap implements Iterable<Coordinate> {
 		if (type == 'P')
 			return Profil.FARMER;
 		else if (type == 'F')
-			return Profil.GLUMBERJACK;
+			return Profil.LUMBERJACK;
 		else if (type == 'R')
 			return Profil.MINER;
 		else if (type == 'S')

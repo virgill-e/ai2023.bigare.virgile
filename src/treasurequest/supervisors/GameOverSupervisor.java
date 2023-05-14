@@ -54,8 +54,8 @@ public class GameOverSupervisor {
 		//TODO : générer les résultats et les afficher.
 		if (ViewNames.PLAY_GAME.equals(fromView)) {
 			this.game=factory.getGame();
-			drawPannel();
 			game.setProfil();
+			drawPannel();
 		}
 	}
 

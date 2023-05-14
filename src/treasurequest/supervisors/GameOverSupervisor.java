@@ -21,6 +21,10 @@ public class GameOverSupervisor {
 	 * CONSTRUCTORS
 	 */
 	
+	/**
+	 * constructeur du game over supervisor recevant la factory en parametre
+	 * @param factory
+	 */
 	public GameOverSupervisor(ITreasureQuestGameFactory factory) {
 		Objects.requireNonNull(factory);
 		this.factory=factory;
@@ -51,7 +55,6 @@ public class GameOverSupervisor {
 	 * @param fromView la vue d'origine. Correspond a priori à une constante définie dans ViewNames.
 	 * */
 	public void onEnter(String fromView) {
-		//TODO : générer les résultats et les afficher.
 		if (ViewNames.PLAY_GAME.equals(fromView)) {
 			this.game=factory.getGame();
 			game.setProfil();
@@ -72,6 +75,7 @@ public class GameOverSupervisor {
 	
 	
 	private void drawPannel() {
+		view.clearPanels();
 		view.addPanel(ResultType.LOSS, String.valueOf(game.getPlayerSpend()));
 		view.addPanel(ResultType.GAIN, String.valueOf(game.getPlayerGain()));
 		view.addPanel(ResultType.DURATION, game.getDuration());

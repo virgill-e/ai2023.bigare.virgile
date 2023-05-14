@@ -205,7 +205,7 @@ public class CaseMap implements Iterable<Coordinate> {
 	 * @param objective
 	 */
 	private void betterClue(Coordinate coordNeighbor, Coordinate coordOrigin, Coordinate coordTrasure) {
-		Coordinate betterCoord = betterClueClosest(coordNeighbor, coordOrigin, coordTrasure);
+		Coordinate betterCoord = coordNeighbor.getClosest(coordOrigin, coordTrasure);
 		if (betterCoord != null) {
 			setClueOnCase(coordNeighbor, betterCoord);
 			return;
@@ -215,7 +215,7 @@ public class CaseMap implements Iterable<Coordinate> {
 			setClueOnCase(coordNeighbor, betterCoord);
 			return;
 		}
-		betterCoord = betterClueClosest(TOP_LEFT, coordOrigin, coordNeighbor);
+		betterCoord = TOP_LEFT.getClosest(coordOrigin, coordNeighbor);
 		if (betterCoord != null) {
 			setClueOnCase(coordNeighbor, betterCoord);
 			return;
@@ -248,19 +248,9 @@ public class CaseMap implements Iterable<Coordinate> {
 	}
 
 	/**
-	 * renvoie la coordonne la plus proche de objective, null si distance egal
-	 * 
-	 * @param coordOrigin
-	 * @param coordNeighbor
-	 * @param objective
+	 * permet de determiner le profil du joueur et de le renvoyer
 	 * @return
 	 */
-	// TODO: supprimer cette methode et garder seulement celle de Coordinate pour
-	// eviter class GOD
-	private Coordinate betterClueClosest(Coordinate coordNeighbor, Coordinate coordOrigin, Coordinate coordTreasure) {
-		return coordNeighbor.getClosest(coordOrigin, coordTreasure);
-	}
-
 	public Profil findProfil() {
 		Set<Coordinate> visited = new HashSet<Coordinate>();
 		Set<Coordinate> zone = new HashSet<Coordinate>();

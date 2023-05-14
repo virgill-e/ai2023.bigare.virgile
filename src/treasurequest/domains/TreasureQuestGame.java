@@ -107,10 +107,18 @@ public class TreasureQuestGame {
 		return this.player.getCoins();
 	}
 	
+	/**
+	 * renvoie le total des depenses d'un joueur
+	 * @return
+	 */
 	public int getPlayerSpend() {
 		return this.player.getSpend();
 	}
 	
+	/**
+	 * renvoie le total des gains d'un joueur
+	 * @return
+	 */
 	public int getPlayerGain() {
 		return this.player.getGain();
 	}
@@ -210,17 +218,36 @@ public class TreasureQuestGame {
 		return caseMap.getCaseWithCoord(activeCoordinate).hasTreasure();
 	}
 	
+	/**
+	 * renvoie un boolean indiquant si le joueur a perdu
+	 * @return
+	 */
 	public boolean isLoose() {
 		return getNbTreasur()==0||!hasEnoughCoins();
 	}
 	
+	/**
+	 * set le type de profil du joueur
+	 */
 	public void setProfil() {
 		Profil profil=caseMap.findProfil();
 		player.setProfil(profil);
 	}
 	
+	/**
+	 * renvoie le profil du joueur
+	 * @return
+	 */
 	public Profil getProfil() {
 		return player.getProfil();
+	}
+	
+	/**
+	 * renvoie le temps du joueur en minute:seconde
+	 * @return
+	 */
+	public String getDuration() {
+		return player.getMinSeconde();
 	}
 
 	/*
@@ -248,9 +275,6 @@ public class TreasureQuestGame {
 		return hasEnoughCoins;
 	}
 
-	public String getDuration() {
-		return player.getMinSeconde();
-	}
 
 
 	

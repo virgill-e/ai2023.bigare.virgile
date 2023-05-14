@@ -2,7 +2,6 @@ package treasurequest.domains;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.StringJoiner;
 
 /**
@@ -65,13 +64,17 @@ public class Player {
 	}
 	
 	public int getGain() {
-		return this.gain;
+		return this.gain+this.coins;
 	}
 
 	public void setCoins(int value) {
 		this.coins=Math.abs(value);
 	}
 	
+	/**
+	 * renvoie le temps de jeu depuis la creation du joueur en minute:seconde
+	 * @return
+	 */
 	public String getMinSeconde() {
 		StringJoiner stringJoiner=new StringJoiner(":");
 		Duration duration=Duration.between(time, LocalDateTime.now());

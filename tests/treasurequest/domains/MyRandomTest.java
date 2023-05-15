@@ -7,11 +7,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-class RandomCoordinateTest {
+class MyRandomTest {
 
 	@Test
 	void test() {
-		RandomCoordinate rc=new RandomCoordinate();
+		MyRandom rc=new MyRandom();
 		List<Coordinate> coords1=new ArrayList<Coordinate>();
 		List<Coordinate> coords2=new ArrayList<Coordinate>();
 		boolean isDiff=false;

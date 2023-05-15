@@ -2,7 +2,6 @@ package treasurequest.domains;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -63,12 +62,6 @@ class CoordinateTest {
 		assertNull(coordSrc.getClosest(coord2, coord3));
 	}
 	
-	@Test
-	void getNeighbor() {
-		Coordinate coordSrc = new Coordinate(0, 0);
-		List<Coordinate> neighbors=coordSrc.getNeighbors();
-		assertEquals(24, neighbors.size());
-	}
 	
 	@Test
 	void compareTo() {

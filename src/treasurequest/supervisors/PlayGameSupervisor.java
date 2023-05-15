@@ -132,6 +132,7 @@ public class PlayGameSupervisor {
 	 * Ce superviseur demande à sa vue de naviguer vers le menu principal.
 	 */
 	public void onStop() {
+		view.clearTiles();
 		view.goTo(ViewNames.MAIN_MENU);
 	}
 
@@ -155,6 +156,7 @@ public class PlayGameSupervisor {
 	}
 
 	private void goToGameOver() {
+		view.clearTiles();
 		view.goTo(ViewNames.GAME_OVER);
 	}
 	

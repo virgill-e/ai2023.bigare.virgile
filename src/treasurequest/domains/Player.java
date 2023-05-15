@@ -28,7 +28,7 @@ public class Player {
 		this.spend=0;
 		this.gain=0;
 		this.time=LocalDateTime.now();
-		this.profil=Profil.NONE;
+		this.profil=Profil.N;
 	}
 	
 	/*
@@ -44,6 +44,7 @@ public class Player {
 	public void substractCoins(int value) {
 		this.coins-=Math.abs(value);
 		this.spend+=Math.abs(value);
+		this.coins=Math.max(0, this.coins);
 	}
 	
 	/**
@@ -67,9 +68,6 @@ public class Player {
 		return this.gain+this.coins;
 	}
 
-	public void setCoins(int value) {
-		this.coins=Math.abs(value);
-	}
 	
 	/**
 	 * renvoie le temps de jeu depuis la creation du joueur en minute:seconde

@@ -81,7 +81,7 @@ public class CaseType {
 			return SAND_COST * 5;
 		else if (type == 'S')
 			return SAND_COST;
-		return Integer.MAX_VALUE;
+		return 0;
 	}
 
 	/**

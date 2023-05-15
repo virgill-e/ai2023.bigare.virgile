@@ -34,7 +34,7 @@ public class CaseMap implements Iterable<Coordinate> {
 	private final Map<Coordinate, Case> cases;
 	private final List<Coordinate> treasures;
 	private Coordinate center;
-	private final IRandomCoordinate random;
+	private final IRandom random;
 	private final Set<Coordinate> digCoord;
 
 	/*
@@ -47,7 +47,7 @@ public class CaseMap implements Iterable<Coordinate> {
 	 * 
 	 * @param mapSample
 	 */
-	public CaseMap(char[][] mapSample, IRandomCoordinate random) {
+	public CaseMap(char[][] mapSample, IRandom random) {
 		Objects.requireNonNull(mapSample);
 		Objects.requireNonNull(random);
 		this.random = random;
@@ -254,12 +254,13 @@ public class CaseMap implements Iterable<Coordinate> {
 	public Profil findProfil() {
 		Set<Coordinate> visited = new HashSet<Coordinate>();
 		Set<Coordinate> zone = new HashSet<Coordinate>();
-		Profil profil = Profil.NONE;
+		Profil profil = Profil.N;
 		for (Coordinate coord : digCoord) {
 			Set<Coordinate> actualZone = new HashSet<Coordinate>();
 			addToZone(coord, actualZone, visited);
 			if (actualZone.size() > zone.size()) {
-				profil = getProfil(coord);
+				char type = getCaseWithCoord(coord).getType();
+				profil = Profil.valueOf(type+"");
 				zone = actualZone;
 			}
 		}
@@ -271,29 +272,13 @@ public class CaseMap implements Iterable<Coordinate> {
 		zone.add(coord);
 		visited.add(coord);
 		List<Coordinate> neighbors = coord.getNeighbors(3);
-		// pour chaque voisin
 		for (Coordinate coordNeigh : neighbors) {
-			// si du meme type
 			Case caseNeigh = getCaseWithCoord(coordNeigh);
 			if(caseNeigh==null)continue;
 			if (caseNeigh.getType() == type && !visited.contains(coordNeigh)&&digCoord.contains(coordNeigh)) {
-				// on ajoute a visited
 				addToZone(coordNeigh, zone, visited);
 			}
 		}
-	}
-
-	private Profil getProfil(Coordinate coord) {
-		char type = getCaseWithCoord(coord).getType();
-		if (type == 'P')
-			return Profil.FARMER;
-		else if (type == 'F')
-			return Profil.LUMBERJACK;
-		else if (type == 'R')
-			return Profil.MINER;
-		else if (type == 'S')
-			return Profil.TOURIST;
-		return Profil.NONE;
 	}
 
 }

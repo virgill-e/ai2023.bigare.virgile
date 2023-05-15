@@ -11,7 +11,7 @@ class FakeRandomTest {
 
 	@Test
 	void FakeRandom() {
-		FakeRandomCoordinate fr=new FakeRandomCoordinate();
+		FakeRandom fr=new FakeRandom();
 		List<Coordinate> coords=new ArrayList<Coordinate>();
 		List<Coordinate> coordsExpected=new ArrayList<Coordinate>();
 		for(int i=10;i>=0;i--) {

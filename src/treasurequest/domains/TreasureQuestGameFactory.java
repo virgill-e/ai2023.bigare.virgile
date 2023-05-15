@@ -24,10 +24,12 @@ import treasurequest.io.CharArrayFileReader;
  */
 public class TreasureQuestGameFactory implements ITreasureQuestGameFactory {
 
+	private static final String SAMPLE_RANDOM_MAP="resources/maps/big-map.txt";
+	
 	private TreasureQuestGame game;
-	private final String sample;
+	private char[][] map;
 	private final Player player;
-	private final CaseMap caseMap;
+	private final String sample;
 
 	/*
 	 * CONSTRUCTORS
@@ -40,15 +42,25 @@ public class TreasureQuestGameFactory implements ITreasureQuestGameFactory {
 	 * @param sample
 	 */
 	public TreasureQuestGameFactory(String sample) {
-		this.sample = sample;
+		this.sample=sample;
 		this.player=new Player(0);
-		this.caseMap=new CaseMap(CharArrayFileReader.parseFile(sample), new RandomCoordinate());
 	}
 
 	/**
 	 * Initialise une instance de TreasureQuestGame
 	 */
 	public void createGame() {
+		this.map = CharArrayFileReader.parseFile(sample);
+		CaseMap caseMap=new CaseMap(this.map, new MyRandom());
+		game = new TreasureQuestGame(caseMap,player);
+	}
+	
+	/**
+	 * genere un insatnce de jeu avec une carte aleatoire
+	 */
+	public void createGameRandomMap() {
+		this.map=MapGenerator.ramdomMap(CharArrayFileReader.parseFile(SAMPLE_RANDOM_MAP), new MyRandom());
+		CaseMap caseMap=new CaseMap(this.map, new MyRandom());
 		game = new TreasureQuestGame(caseMap,player);
 	}
 

@@ -16,9 +16,11 @@ import treasurequest.supervisors.views.*;
  * */
 public class MainMenuSupervisor {
 	private static final String NEW_GAME = "Nouvelle partie";
+	private static final String RANDOM_GAME = "Partie aléatoire";
 	private static final String EXIT = "Quitter";
 	private static final int NEW_GAME_ITEM = 0;
-	private static final int EXIT_ITEM = 1;
+	private static final int RANDOM_GAME_ITEM = 1;
+	private static final int EXIT_ITEM = 2;
 	
 	private MainMenuView view;
 	private final ITreasureQuestGameFactory factory;
@@ -46,7 +48,7 @@ public class MainMenuSupervisor {
 		}
 		
 		this.view = view;
-		this.view.setItems(List.of(NEW_GAME,EXIT));
+		this.view.setItems(List.of(NEW_GAME,RANDOM_GAME,EXIT));
 		//TODO : définir à la vue les items.
 	}
 
@@ -58,6 +60,10 @@ public class MainMenuSupervisor {
 	public void onItemSelected(int itemPos) {
 		if(EXIT_ITEM == itemPos) {
 			view.confirmExit();
+		}
+		if(RANDOM_GAME_ITEM==itemPos) {
+			this.factory.createGameRandomMap();
+			view.goTo(ViewNames.PLAY_GAME);
 		}
 		if(NEW_GAME_ITEM==itemPos) {
 			this.factory.createGame();

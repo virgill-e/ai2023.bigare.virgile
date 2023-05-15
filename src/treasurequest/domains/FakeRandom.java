@@ -8,11 +8,17 @@ import java.util.List;
  * @author virgi
  *
  */
-public class FakeRandomCoordinate implements IRandomCoordinate{
+public class FakeRandom implements IRandom{
+	
 
 	@Override
 	public void shuffle(List<Coordinate> list) {
 		Collections.sort(list);
+	}
+
+	@Override
+	public int nextInt() {
+		return 0;
 	}
 
 }

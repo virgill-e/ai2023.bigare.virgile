@@ -7,11 +7,17 @@ import java.util.List;
  * @author virgi
  *
  */
-public interface IRandomCoordinate {
+public interface IRandom {
 
 	/**
 	 * melange une list
 	 * @param list
 	 */
 	public void shuffle(List<Coordinate> list);
+	
+	/**
+	 * renvoie un entier aleatoire
+	 * @return
+	 */
+	public int nextInt();
 }

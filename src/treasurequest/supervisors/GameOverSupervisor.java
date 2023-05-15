@@ -79,6 +79,6 @@ public class GameOverSupervisor {
 		view.addPanel(ResultType.LOSS, String.valueOf(game.getPlayerSpend()));
 		view.addPanel(ResultType.GAIN, String.valueOf(game.getPlayerGain()));
 		view.addPanel(ResultType.DURATION, game.getDuration());
-		view.addPanel(ResultType.valueOf(game.getProfil().toString()), game.getProfil().toString());
+		view.addPanel(ResultType.valueOf(game.getProfil().getTitle()), game.getProfil().getTitle());
 	}
 }

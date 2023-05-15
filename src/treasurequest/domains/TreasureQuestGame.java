@@ -63,7 +63,7 @@ public class TreasureQuestGame {
 	public TreasureQuestGame(CaseMap map,Player player) {
 		this.caseMap = map;
 		this.player = player;
-		this.player.setCoins(caseMap.getNbTreasure() * 2);
+		this.player.addCoins(caseMap.getNbTreasure() * 2);
 		this.activeCoordinate = caseMap.getCenter();
 	}
 
@@ -268,7 +268,7 @@ public class TreasureQuestGame {
 		boolean hasEnoughCoins=false;
 		for(Coordinate coord:caseMap) {
 			Case myCase=caseMap.getCaseWithCoord(coord);
-			if(myCase.getCost()<=player.getCoins()) {
+			if(myCase.getCost()<=player.getCoins()&&myCase.getType()!='X') {
 				hasEnoughCoins=true;
 			}
 		}

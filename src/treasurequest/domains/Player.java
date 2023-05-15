@@ -2,6 +2,8 @@ package treasurequest.domains;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.StringJoiner;
 
 /**
@@ -10,11 +12,11 @@ import java.util.StringJoiner;
  *
  */
 public class Player {
-	private int coins;
 	private int spend;
 	private int gain;
 	private final LocalDateTime time;
 	private Profil profil;
+	private Set<Coordinate> zone;
 	
 	/*
 	 * CONSTRUCTORS
@@ -24,11 +26,11 @@ public class Player {
 	 * @param coins
 	 */
 	public Player(int coins) {
-		this.coins=coins;
 		this.spend=0;
-		this.gain=0;
+		this.gain=coins;
 		this.time=LocalDateTime.now();
 		this.profil=Profil.N;
+		this.zone=new HashSet<Coordinate>();
 	}
 	
 	/*
@@ -42,9 +44,7 @@ public class Player {
 	 * @param value
 	 */
 	public void substractCoins(int value) {
-		this.coins-=Math.abs(value);
 		this.spend+=Math.abs(value);
-		this.coins=Math.max(0, this.coins);
 	}
 	
 	/**
@@ -52,12 +52,15 @@ public class Player {
 	 * @param value
 	 */
 	public void addCoins(int value) {
-		this.coins+=Math.abs(value);
 		this.gain+=Math.abs(value);
 	}
 	
+	/**
+	 * renvoie le nombre de piece que le joueur possede
+	 * @return
+	 */
 	public int getCoins() {
-		return this.coins;
+		return this.gain-this.spend;
 	}
 
 	public int getSpend() {
@@ -65,7 +68,7 @@ public class Player {
 	}
 	
 	public int getGain() {
-		return this.gain+this.coins;
+		return this.gain;
 	}
 
 	
@@ -88,6 +91,14 @@ public class Player {
 	public Profil getProfil() {
 		return profil;
 		
+	}
+
+	public void setZone(Set<Coordinate> zone) {
+		this.zone=new HashSet<Coordinate>(zone);
+	}
+	
+	public Set<Coordinate> getZone(){
+		return new HashSet<Coordinate>(this.zone);
 	}
 	
 	/*

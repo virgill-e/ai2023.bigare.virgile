@@ -251,20 +251,17 @@ public class CaseMap implements Iterable<Coordinate> {
 	 * permet de determiner le profil du joueur et de le renvoyer
 	 * @return
 	 */
-	public Profil findProfil() {
+	public List<Coordinate> findProfil() {
 		Set<Coordinate> visited = new HashSet<Coordinate>();
 		Set<Coordinate> zone = new HashSet<Coordinate>();
-		Profil profil = Profil.N;
 		for (Coordinate coord : digCoord) {
 			Set<Coordinate> actualZone = new HashSet<Coordinate>();
 			addToZone(coord, actualZone, visited);
 			if (actualZone.size() > zone.size()) {
-				char type = getCaseWithCoord(coord).getType();
-				profil = Profil.valueOf(type+"");
 				zone = actualZone;
 			}
 		}
-		return profil;
+		return new ArrayList<>(zone);
 	}
 
 	private void addToZone(Coordinate coord, Set<Coordinate> zone, Set<Coordinate> visited) {

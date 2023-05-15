@@ -31,7 +31,7 @@ public class ArchTest {
 		ArchRule myRule = classes()
 			    .that().resideInAPackage("treasurequest.supervisors")
 			    .should().onlyBeAccessed()
-			    .byAnyPackage("treasurequest","treasurequest.swing..", "treasurequest.supervisors");
+			    .byAnyPackage("treasurequest","treasurequest.swing..", "treasurequest.supervisors..");
 		
 		myRule.check(classes);
 	}

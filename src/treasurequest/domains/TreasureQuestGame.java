@@ -1,5 +1,9 @@
 package treasurequest.domains;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * class d'une partie de Treasure Quest
  * 
@@ -60,7 +64,7 @@ public class TreasureQuestGame {
 	 * 
 	 * @param sample
 	 */
-	public TreasureQuestGame(CaseMap map,Player player) {
+	public TreasureQuestGame(CaseMap map, Player player) {
 		this.caseMap = map;
 		this.player = player;
 		this.player.addCoins(caseMap.getNbTreasure() * 2);
@@ -106,17 +110,19 @@ public class TreasureQuestGame {
 	public int getPlayerCoins() {
 		return this.player.getCoins();
 	}
-	
+
 	/**
 	 * renvoie le total des depenses d'un joueur
+	 * 
 	 * @return
 	 */
 	public int getPlayerSpend() {
 		return this.player.getSpend();
 	}
-	
+
 	/**
 	 * renvoie le total des gains d'un joueur
+	 * 
 	 * @return
 	 */
 	public int getPlayerGain() {
@@ -131,8 +137,6 @@ public class TreasureQuestGame {
 	public int getNbTreasur() {
 		return this.caseMap.getNbTreasure();
 	}
-	
-	
 
 	/**
 	 * renvoie le type de la case active
@@ -217,33 +221,40 @@ public class TreasureQuestGame {
 	public boolean ActiveHasTreasure() {
 		return caseMap.getCaseWithCoord(activeCoordinate).hasTreasure();
 	}
-	
+
 	/**
 	 * renvoie un boolean indiquant si le joueur a perdu
+	 * 
 	 * @return
 	 */
 	public boolean isLoose() {
-		return getNbTreasur()==0||!hasEnoughCoins();
+		return getNbTreasur() == 0 || !hasEnoughCoins();
 	}
-	
+
 	/**
 	 * set le type de profil du joueur
 	 */
 	public void setProfil() {
-		Profil profil=caseMap.findProfil();
-		player.setProfil(profil);
+		List<Coordinate> zone = caseMap.findProfil();
+		Set<Coordinate> actualZone=player.getZone();
+		if(actualZone.size()>zone.size())return;
+		Case firstCase = caseMap.getCaseWithCoord(zone.get(0));
+		player.setProfil(Profil.valueOf(firstCase.getType() + ""));
+		player.setZone(new HashSet<>(zone));
 	}
-	
+
 	/**
 	 * renvoie le profil du joueur
+	 * 
 	 * @return
 	 */
 	public Profil getProfil() {
 		return player.getProfil();
 	}
-	
+
 	/**
 	 * renvoie le temps du joueur en minute:seconde
+	 * 
 	 * @return
 	 */
 	public String getDuration() {
@@ -263,20 +274,16 @@ public class TreasureQuestGame {
 			return false;
 		return player.getCoins() >= caseDig.getCost();
 	}
-	
+
 	private boolean hasEnoughCoins() {
-		boolean hasEnoughCoins=false;
-		for(Coordinate coord:caseMap) {
-			Case myCase=caseMap.getCaseWithCoord(coord);
-			if(myCase.getCost()<=player.getCoins()&&myCase.getType()!='X') {
-				hasEnoughCoins=true;
+		boolean hasEnoughCoins = false;
+		for (Coordinate coord : caseMap) {
+			Case myCase = caseMap.getCaseWithCoord(coord);
+			if (myCase.getCost() <= player.getCoins() && myCase.getType() != 'X') {
+				hasEnoughCoins = true;
 			}
 		}
 		return hasEnoughCoins;
 	}
-
-
-
-	
 
 }

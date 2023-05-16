@@ -44,7 +44,7 @@ public class Player {
 	 * @param value
 	 */
 	public void substractCoins(int value) {
-		this.spend+=Math.abs(value);
+		this.spend+=Math.min(value, this.gain);
 	}
 	
 	/**
@@ -79,12 +79,16 @@ public class Player {
 	public String getMinSeconde() {
 		StringJoiner stringJoiner=new StringJoiner(":");
 		Duration duration=Duration.between(time, LocalDateTime.now());
-		stringJoiner.add(String.valueOf(duration.getSeconds()/60));
-		stringJoiner.add(String.valueOf(duration.getSeconds()%60));
+		stringJoiner.add(String.format("%02d", duration.getSeconds()/60));
+		stringJoiner.add(String.format("%02d", duration.getSeconds()%60));
 		return stringJoiner.toString();
 	}
 	
 	public void setProfil(Profil profil) {
+		if(profil==null) {
+			this.profil=Profil.N;
+			return;
+		}
 		this.profil=profil;
 	}
 

@@ -80,6 +80,9 @@ public class Coordinate implements Comparable<Coordinate>{
 	 * @return
 	 */
 	public List<Coordinate> getNeighbors(int perimetre) {
+		if(perimetre<2) {
+			return List.of(new Coordinate(this.col, this.row));
+		}
 		List<Coordinate> neighbors = new ArrayList<Coordinate>();
 		int end = perimetre / 2;
 		int start = end * -1;

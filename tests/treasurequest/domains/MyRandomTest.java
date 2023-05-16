@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class MyRandomTest {
 
 	@Test
-	void test() {
+	void testshuffle() {
 		MyRandom rc=new MyRandom();
 		List<Coordinate> coords1=new ArrayList<Coordinate>();
 		List<Coordinate> coords2=new ArrayList<Coordinate>();
@@ -27,6 +27,12 @@ class MyRandomTest {
 			if(isDiff)break;
 		}
 		assertTrue(isDiff);
+	}
+	
+	@Test
+	void nextIntTest() {
+		MyRandom rdm=new MyRandom();
+		assertNotEquals(rdm.nextInt(), rdm.nextInt());
 	}
 
 }

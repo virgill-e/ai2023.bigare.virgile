@@ -233,11 +233,37 @@ public class TreasureQuestGame {
 
 	/**
 	 * set le type de profil du joueur
+	 * 
+	 * 
+	 * CTT du calcul de la plus grande zone de case adjacente
+	 * 
+	 * La methode SetProfil() appelle findProfil()
+	 * 
+	 * findProfil() parcour les case creuse 'd'
+	 * 
+	 * pour chaque case creuse nous appellons la methode recursice addToZone() qui
+	 * boucle sur les voisins de la case actuelle 'v', et 'r' est la récursivité
+	 * 
+	 * ne obtenont donc une CTT de O(d*v*r)
+	 * 
+	 * La complexite est donc cubique
+	 * 
+	 * 
+	 * Choix du type et de l’implémentation d’une collection pour mémoriser les
+	 * cases visitées:
+	 * 
+	 * Les cases visite sont utilise dans la methode findProfil {@link CaseMap#findProfil()}
+	 * 
+	 * Les cases visite sont sont represente dans un Set car mes principal operations sont des add et contains
+	 * 
+	 * J'ai utilisé la hashSet qui permet de realiser ces operation avec une CTT de O(1)
+	 * 
 	 */
 	public void setProfil() {
 		List<Coordinate> zone = caseMap.findProfil();
-		Set<Coordinate> actualZone=player.getZone();
-		if(actualZone.size()>zone.size())return;
+		Set<Coordinate> actualZone = player.getZone();
+		if (actualZone.size() > zone.size() || zone.size() == 0)
+			return;
 		Case firstCase = caseMap.getCaseWithCoord(zone.get(0));
 		player.setProfil(Profil.valueOf(firstCase.getType() + ""));
 		player.setZone(new HashSet<>(zone));

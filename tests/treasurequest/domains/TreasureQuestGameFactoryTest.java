@@ -29,6 +29,13 @@ class TreasureQuestGameFactoryTest {
 		assertTrue(tqgf.getGame() instanceof TreasureQuestGame);
 	}
 	
+	@Test
+	void createRandomGame() {
+		TreasureQuestGameFactory tqgf=new TreasureQuestGameFactory(SAMPLE);
+		tqgf.createGameRandomMap();
+		assertTrue(tqgf.getGame() instanceof TreasureQuestGame);
+	}
+	
 	
 	
 	

@@ -252,6 +252,7 @@ public class CaseMap implements Iterable<Coordinate> {
 	 * @return
 	 */
 	public List<Coordinate> findProfil() {
+		if(digCoord.size()==0)return new ArrayList<>();
 		Set<Coordinate> visited = new HashSet<Coordinate>();
 		Set<Coordinate> zone = new HashSet<Coordinate>();
 		for (Coordinate coord : digCoord) {

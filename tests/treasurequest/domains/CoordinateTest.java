@@ -2,6 +2,8 @@ package treasurequest.domains;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -72,6 +74,32 @@ class CoordinateTest {
 		assertTrue(coordSrc.compareTo(coord3)==0);
 		assertTrue(coordSrc.compareTo(coord2)<0);
 		assertTrue(coord2.compareTo(coordSrc)>0);
+	}
+	
+	@Test
+	void getNeighbor() {
+		Coordinate coordSrc = new Coordinate(0, 0);
+		List<Coordinate> neighboors=coordSrc.getNeighbors(3);
+		List<Coordinate> neighboorsExpected=new ArrayList<Coordinate>();
+		neighboorsExpected.add(new Coordinate(-1, -1));
+		neighboorsExpected.add(new Coordinate(-1, 0));
+		neighboorsExpected.add(new Coordinate(-1, 1));
+		neighboorsExpected.add(new Coordinate(0, -1));
+		neighboorsExpected.add(new Coordinate(0, 1));
+		neighboorsExpected.add(new Coordinate(1, -1));
+		neighboorsExpected.add(new Coordinate(1, 0));
+		neighboorsExpected.add(new Coordinate(1, 1));
+		
+		for(int i=0;i<neighboors.size();i++) {
+			assertTrue(neighboorsExpected.contains(neighboors.get(i)));
+		}
+	}
+	
+	@Test
+	void getNeighborSize1() {
+		Coordinate coordSrc = new Coordinate(0, 0);
+		List<Coordinate> neighboors=coordSrc.getNeighbors(1);
+		assertEquals(coordSrc, neighboors.get(0));
 	}
 
 }

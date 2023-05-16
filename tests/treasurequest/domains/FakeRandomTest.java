@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class FakeRandomTest {
 
 	@Test
-	void FakeRandom() {
+	void FakeShuffle() {
 		FakeRandom fr=new FakeRandom();
 		List<Coordinate> coords=new ArrayList<Coordinate>();
 		List<Coordinate> coordsExpected=new ArrayList<Coordinate>();
@@ -22,6 +22,12 @@ class FakeRandomTest {
 		for(int i=0;i<10;i++) {
 			assertEquals(coordsExpected.get(i), coords.get(i));
 		}
+	}
+	
+	@Test
+	void fakeRandom() {
+		FakeRandom fr=new FakeRandom();
+		assertEquals(fr.nextInt(), 0);
 	}
 
 }

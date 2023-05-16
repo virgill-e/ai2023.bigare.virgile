@@ -2,6 +2,8 @@ package treasurequest.domains;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.jupiter.api.Test;
 
 import treasurequest.io.CharArrayFileReader;
@@ -138,6 +140,59 @@ class TreasureQuestGameTest {
 		assertFalse(tqg.ActiveHasTreasure());
 		tqg.updateActiveCase(-1, -2);
 		assertTrue(tqg.ActiveHasTreasure());
+	}
+	
+	@Test
+	void getCoins() {
+		Player player = new Player(0);
+		TreasureQuestGame tqg = new TreasureQuestGame(new CaseMap(MAP_TAB, new FakeRandom()), player);
+		assertEquals(2, tqg.getPlayerCoins());
+	}
+	
+	@Test
+	void getSpend() {
+		Player player = new Player(0);
+		TreasureQuestGame tqg = new TreasureQuestGame(new CaseMap(MAP_TAB, new FakeRandom()), player);
+		assertEquals(0, tqg.getPlayerSpend());
+	}
+	
+	@Test
+	void getGain() {
+		Player player = new Player(0);
+		TreasureQuestGame tqg = new TreasureQuestGame(new CaseMap(MAP_TAB, new FakeRandom()), player);
+		assertEquals(2, tqg.getPlayerGain());
+	}
+	
+	@Test
+	void loose() {
+		Player player = new Player(0);
+		TreasureQuestGame tqg = new TreasureQuestGame(new CaseMap(MAP_TAB, new FakeRandom()), player);
+		assertFalse(tqg.isLoose());
+	}
+	
+	@Test
+	void getAndSetProfil() {
+		Player player = new Player(0);
+		TreasureQuestGame tqg = new TreasureQuestGame(new CaseMap(MAP_TAB, new FakeRandom()), player);
+		player.setProfil(Profil.S);
+		assertEquals(Profil.S, tqg.getProfil());
+	}
+	
+	@Test
+	void timePlayer() throws InterruptedException {
+		Player player = new Player(0);
+		TreasureQuestGame tqg = new TreasureQuestGame(new CaseMap(MAP_TAB, new FakeRandom()), player);
+		TimeUnit.SECONDS.sleep(2);
+		assertNotEquals("00:00", tqg.getDuration());
+	}
+	
+	@Test
+	void SetProfil(){
+		Player player = new Player(0);
+		TreasureQuestGame tqg = new TreasureQuestGame(new CaseMap(MAP_TAB, new FakeRandom()), player);
+		tqg.updateActiveCase(-1, 0);
+		tqg.dig();
+		tqg.setProfil();
 	}
 
 }
